@@ -1,2 +1,2 @@
-# compatibility-standard-definitions
-Validation compatibility library for comparing GraphQL definitions from standard against implementations.
+# Compatibility Standard Definitions
+Validation compatibility library for comparing GraphQL's standard definitions against implementations.
