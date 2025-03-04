@@ -1,2 +1,19 @@
 # Compatibility Standard Definitions
-Validation compatibility library for comparing GraphQL's standard definitions against implementations.
+
+Golang CLI library for **validating compatibility** of any GraphQL implementation type system against the GraphQL reference implementation: [graphql-js](https://github.com/graphql/graphql-js).
+
+Current implementation supports the following GraphQL implementations:
+- [https://github.com/graphql-go/graphql](https://github.com/graphql-go/graphql)
+
+## Use Cases
+
+- Cross validationg of compatibility between implementation versions of the GraphQL type system.
+
+## Quick Start
+
+Running the library:
+
+```
+./bin/start.sh
+```
+
