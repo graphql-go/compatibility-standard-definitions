@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	mainApp "graphql-go/compatibility-standard-definitions/app"
 	"graphql-go/compatibility-standard-definitions/cmd"
 	"graphql-go/compatibility-standard-definitions/implementation"
 )
@@ -27,5 +28,15 @@ func main() {
 		log.Fatal(err)
 	}
 
+	app := mainApp.App{}
+	r, err := app.Run(mainApp.AppParams{
+		Specification:  implementation.GraphqlSpecification.Repo,
+		Implementation: implementation.GraphqlGoImplementation.Repo,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	log.Println(runResult)
+	log.Println(r)
 }
