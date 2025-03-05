@@ -17,3 +17,7 @@ Running the library:
 ./bin/start.sh
 ```
 
+### Implementation Details
+
+1- `puller`: Git clones the GraphQL specfication repository and the GraphQL reference JavaScript implementation.
+
