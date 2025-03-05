@@ -1,11 +1,12 @@
 package implementation
 
 import (
-	"graphql-go/compatibility-unit-tests/types"
+	"graphql-go/compatibility-standard-definitions/types"
 )
 
 const ImplementationPrefix = "Implementation"
 const RefImplementationPrefix = "Reference Implementation"
+const SpecificationPrefix = "Specification"
 
 var GraphqlGoImplementation = types.Implementation{
 	Repo: types.Repository{
