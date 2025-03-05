@@ -30,5 +30,8 @@ Running the library:
 5- `validator`: Compares the type system definitions of the implementation against the specification.
 
 
+### Further Work
+
+- The type system definition extraction from the **GraphQL specfication repository** can be used as a source for auto-generating any implementation in any programming language.
 
 
