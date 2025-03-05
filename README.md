@@ -18,6 +18,7 @@ Running the library:
 ```
 
 ### Implementation Details
-
-1- `puller`: Git clones the GraphQL specfication repository and the GraphQL reference JavaScript implementation.
+Comparing types
+1- `puller`: Git clones the **GraphQL specfication repository** and a choosen GraphQL implementation.
+2- `extractor`: Pulls the type system definitions from the GraphQL specification and pulls also from the GraphQL implementation via introspection.
 
