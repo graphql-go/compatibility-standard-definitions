@@ -1,6 +1,7 @@
 package puller
 
 import (
+	"log"
 	"os"
 	"strings"
 
@@ -24,6 +25,18 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 	repos := []types.Repository{
 		params.Specification,
 		params.Implementation,
+	}
+
+	if _, err := os.Stat("./repos/"); err != nil {
+		if os.IsNotExist(err) {
+			if err := os.Mkdir("repos", os.ModePerm); err != nil {
+				log.Println("1")
+				return nil, err
+			}
+		} else {
+			log.Println("2")
+			return nil, err
+		}
 	}
 
 	for _, r := range repos {
