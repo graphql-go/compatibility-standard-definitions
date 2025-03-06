@@ -1,6 +1,9 @@
 package app
 
 import (
+	"log"
+
+	"graphql-go/compatibility-standard-definitions/extractor"
 	"graphql-go/compatibility-standard-definitions/puller"
 	"graphql-go/compatibility-standard-definitions/types"
 )
@@ -25,6 +28,14 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 	}); err != nil {
 		return nil, err
 	}
+
+	ex := extractor.Extractor{}
+	extractorResult, err := ex.Extract(&extractor.ExtractorParams{})
+	if err != nil {
+		return nil, err
+	}
+
+	log.Println(extractorResult)
 
 	return &AppResult{}, nil
 }
