@@ -1,14 +1,16 @@
 package puller
 
 import (
-	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/go-git/go-git/v5"
 
 	"graphql-go/compatibility-standard-definitions/types"
 )
+
+const reposDirName = "repos"
 
 type Puller struct {
 }
@@ -27,20 +29,18 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 		params.Implementation,
 	}
 
-	if _, err := os.Stat("./repos/"); err != nil {
+	if _, err := os.Stat(reposDirName); err != nil {
 		if os.IsNotExist(err) {
-			if err := os.Mkdir("repos", os.ModePerm); err != nil {
-				log.Println("1")
+			if err := os.Mkdir(reposDirName, os.ModePerm); err != nil {
 				return nil, err
 			}
 		} else {
-			log.Println("2")
 			return nil, err
 		}
 	}
 
 	for _, r := range repos {
-		name := "./repos/" + r.Name
+		name := filepath.Join(reposDirName, r.Name)
 		if _, err := os.Stat(name); os.IsNotExist(err) {
 			if err := os.Mkdir(name, os.ModePerm); err != nil {
 				return nil, err
