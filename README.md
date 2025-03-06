@@ -19,11 +19,11 @@ Running the library:
 
 ### Implementation Details
 
-1- `puller`: Git clones the **GraphQL specfication repository**.
+1- `puller`: Git clones the **GraphQL specification repository**.
 
 2- `puller`: Git clones a **GraphQL implementation repository**.
 
-3- `extractor`: Pulls the type system definitions from the **GraphQL specfication repository**.
+3- `extractor`: Pulls the type system definitions from the **GraphQL specification repository**.
 
 4- `extractor`: Pulls the type system definitions from a **GraphQL implementation** via introspection.
 
