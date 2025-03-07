@@ -48,4 +48,6 @@ _Analysis date: March 7th 2025._
 | Headings |   ✔️   | ✔️ |
 | **Unit Tests Support** |      |  |
 | Parser |   ✔️   | ✔️ |
+| **AST Walk** |   ✔️   | ✔️ |
+| Node API Access |   TODO   | Limited and not clear APIs to get access to each node's value, eg: https://github.com/yuin/goldmark/blob/master/ast/ast.go#L451 |
 
