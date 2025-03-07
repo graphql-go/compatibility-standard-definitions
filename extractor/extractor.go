@@ -22,8 +22,12 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 
 	parser := goldmark.DefaultParser()
 	node := parser.Parse(text.NewReader(rawMarkdown))
-
-	log.Println(node)
+	if node.HasChildren() {
+		temp := node
+		for temp != nil {
+			temp = temp.NextSibling()
+		}
+	}
 
 	return &ExtractorResult{}, nil
 }
