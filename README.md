@@ -37,8 +37,6 @@ Running the library:
 
 #### Dependencies Analysis
 
-##### Markdown Parsing
-
 _Analysis date: March 7th 2025._
 
 |               | blackfriday | goldmark |
@@ -46,5 +44,8 @@ _Analysis date: March 7th 2025._
 | GitHub URL        |   https://github.com/russross/blackfriday   | https://github.com/yuin/goldmark |
 | GitHub Stars           |   5.5k   | 3.9k |
 | Last Commit Date           |   Oct 26, 2020   | Feb 18, 2025 |
-| Supports the following markdown parsing features required for this library: Heading. |   ✔️   | ✔️ |
+| **Markdown Parsing Features** |      |  |
+| Headings |   ✔️   | ✔️ |
+| **Unit Tests Support** |      |  |
+| Parser |   ✔️   | ✔️ |
 
