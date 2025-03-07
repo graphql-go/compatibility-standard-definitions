@@ -1,8 +1,12 @@
 package extractor
 
 import (
+	"bytes"
 	"log"
 	"os"
+
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/parser"
 )
 
 type ExtractorParams struct{}
@@ -12,25 +16,26 @@ type Extractor struct {
 }
 
 func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
-	typeSystemStr, err := e.readTypeSystem()
+	rawMarkdown, err := e.readTypeSystem()
 	if err != nil {
 		return nil, err
 	}
 
-	log.Println(typeSystemStr)
+	buf := bytes.Buffer{}
+	if err := goldmark.Convert(rawMarkdown, &buf, parser.WithContext(parser.NewContext())); err != nil {
+		return nil, err
+	}
+
+	log.Println(string(buf.String()))
 
 	return &ExtractorResult{}, nil
 }
 
-func (e *Extractor) readTypeSystem() (string, error) {
+func (e *Extractor) readTypeSystem() ([]byte, error) {
 	f, err := os.ReadFile("./repos/graphql-specification/spec/Section 3 -- Type System.md")
 	if err != nil {
-		return "", err
+		return []byte{}, err
 	}
 
-	log.Println(string(f))
-
-	// return strings.Split(string(f), "\n"), nil
-
-	return "", nil
+	return f, nil
 }
