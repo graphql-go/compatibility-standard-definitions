@@ -1,10 +1,10 @@
 package extractor
 
 import (
+	"log"
 	"os"
 
-	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark/text"
+	"github.com/russross/blackfriday/v2"
 )
 
 type ExtractorParams struct{}
@@ -19,14 +19,8 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, err
 	}
 
-	parser := goldmark.DefaultParser()
-	node := parser.Parse(text.NewReader(rawMarkdown))
-	if node.HasChildren() {
-		temp := node
-		for temp != nil {
-			temp = temp.NextSibling()
-		}
-	}
+	markdown := blackfriday.New()
+	node := markdown.Parse(rawMarkdown)
 
 	return &ExtractorResult{}, nil
 }
