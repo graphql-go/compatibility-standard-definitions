@@ -1,7 +1,6 @@
 package extractor
 
 import (
-	"log"
 	"os"
 
 	"github.com/yuin/goldmark"
