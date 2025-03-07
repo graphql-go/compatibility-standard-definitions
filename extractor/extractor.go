@@ -1,12 +1,11 @@
 package extractor
 
 import (
-	"bytes"
 	"log"
 	"os"
 
 	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/text"
 )
 
 type ExtractorParams struct{}
@@ -21,12 +20,10 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, err
 	}
 
-	buf := bytes.Buffer{}
-	if err := goldmark.Convert(rawMarkdown, &buf, parser.WithContext(parser.NewContext())); err != nil {
-		return nil, err
-	}
+	parser := goldmark.DefaultParser()
+	node := parser.Parse(text.NewReader(rawMarkdown))
 
-	log.Println(string(buf.String()))
+	log.Println(node)
 
 	return &ExtractorResult{}, nil
 }
