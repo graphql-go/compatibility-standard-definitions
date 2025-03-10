@@ -14,7 +14,18 @@ type IntrospectionObjectType struct {
 	interfaces  IntrospectionInterfaceType `json:"interfaces"`
 }
 
+type IntrospectionType struct {
+}
+
+type IntrospectionQuery struct {
+	__schema IntrospectionSchema
+}
+
 type IntrospectionSchema struct {
-	description string                  `json:"description"`
-	queryType   IntrospectionObjectType `json:"queryType"`
+	description      string                  `json:"description"`
+	queryType        IntrospectionObjectType `json:"queryType"`
+	mutationType     IntrospectionObjectType `json:"queryType"`
+	subscriptionType IntrospectionObjectType `json:"queryType"`
+	types            IntrospectionType       `json:"types"`
+	directives       IntrospectionDirective  `json:"directives"`
 }
