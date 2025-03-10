@@ -3,8 +3,9 @@ package extractor
 import (
 	"log"
 	"os"
+	"strings"
 
-	"github.com/russross/blackfriday/v2"
+	"go/doc/comment"
 )
 
 type ExtractorParams struct{}
@@ -19,8 +20,21 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, err
 	}
 
-	markdown := blackfriday.New()
-	node := markdown.Parse(rawMarkdown)
+	parser := comment.Parser{}
+	doc := parser.Parse(string(rawMarkdown))
+	for _, d := range doc.Content {
+		p, ok := d.(*comment.Paragraph)
+		if ok {
+			for _, t := range p.Text {
+				switch val := t.(type) {
+				case comment.Plain:
+					if strings.HasPrefix(string(val), "##") {
+						log.Println(string(val))
+					}
+				}
+			}
+		}
+	}
 
 	return &ExtractorResult{}, nil
 }
