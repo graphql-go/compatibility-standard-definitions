@@ -20,23 +20,18 @@ func main() {
 	header := implementation.GraphqlSpecification.Repo.String(implementation.SpecificationPrefix)
 
 	cli := cmd.CLI{}
-	runResult, err := cli.Run(&cmd.RunParams{
+	if _, err := cli.Run(&cmd.RunParams{
 		Choices: choices,
 		Header:  header,
-	})
-	if err != nil {
+	}); err != nil {
 		log.Fatal(err)
 	}
 
 	app := mainApp.App{}
-	r, err := app.Run(mainApp.AppParams{
+	if _, err := app.Run(mainApp.AppParams{
 		Specification:  implementation.GraphqlSpecification.Repo,
 		Implementation: implementation.GraphqlGoImplementation.Repo,
-	})
-	if err != nil {
+	}); err != nil {
 		log.Fatal(err)
 	}
-
-	log.Println(runResult)
-	log.Println(r)
 }
