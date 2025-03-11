@@ -11,11 +11,12 @@ type IntrospectionScalarType struct {
 }
 
 type IntrospectionObjectType struct {
-	kind        string                     `json:"kind"`
-	name        string                     `json:"name"`
-	description string                     `json:"description"`
-	fields      IntrospectionField         `json:"fields"`
-	interfaces  IntrospectionInterfaceType `json:"interfaces"`
+	kind        string             `json:"kind"`
+	name        string             `json:"name"`
+	description string             `json:"description"`
+	fields      IntrospectionField `json:"fields"`
+	// TODO(@chris-ramon): Replace interface{} with other strategy.
+	interfaces interface{} `json:"interfaces"`
 }
 
 type IntrospectionInterfaceType struct {
@@ -23,8 +24,8 @@ type IntrospectionInterfaceType struct {
 	name        string             `json:"name"`
 	description string             `json:"description"`
 	fields      IntrospectionField `json:"fields"`
-	// TODO(@chris-ramon)
-	// interfaces    IntrospectionInterfaceType `json:"interfaces"`
+	// TODO(@chris-ramon): Replace interface{} with other strategy.
+	interfaces interface{} `json:"interfaces"`
 	// possibleTypes IntrospectionObjectType    `json:"possibleTypes"`
 }
 
