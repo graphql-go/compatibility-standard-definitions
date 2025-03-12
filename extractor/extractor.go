@@ -1,19 +1,28 @@
 package extractor
 
 import (
-	"log"
 	"os"
 	"strings"
 
 	"go/doc/comment"
+	"graphql-go/compatibility-standard-definitions/types"
 )
 
-type ExtractorParams struct{}
-type ExtractorResult struct{}
-
+// Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
 }
 
+// ExtractorParams represents the parameters of the extract method.
+type ExtractorParams struct {
+}
+
+// ExtractorResult represents the result of the extract method.
+type ExtractorResult struct {
+	SpecificationIntrospection  types.SpecificationIntrospection
+	ImplementationIntrospection types.ImplementationIntrospection
+}
+
+// Extract extracts and return the introspection result from the specification and a given implementation.
 func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 	rawMarkdown, err := e.readTypeSystem()
 	if err != nil {
@@ -29,16 +38,20 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 				switch val := t.(type) {
 				case comment.Plain:
 					if strings.HasPrefix(string(val), "##") {
-						log.Println(string(val))
+						// log.Println(string(val))
 					}
 				}
 			}
 		}
 	}
 
-	return &ExtractorResult{}, nil
+	return &ExtractorResult{
+		SpecificationIntrospection:  types.SpecificationIntrospection{},
+		ImplementationIntrospection: types.ImplementationIntrospection{},
+	}, nil
 }
 
+// readTypeSystem reads and return the type system of the graphql specification.
 func (e *Extractor) readTypeSystem() ([]byte, error) {
 	f, err := os.ReadFile("./repos/graphql-specification/spec/Section 3 -- Type System.md")
 	if err != nil {
