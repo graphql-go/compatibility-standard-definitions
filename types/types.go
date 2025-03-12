@@ -37,3 +37,11 @@ func (i *Implementation) MapKey(prefix string) string {
 type Specification struct {
 	Repo Repository
 }
+
+// SpecificationIntrospection represents the introspection result of the graphql specification.
+type SpecificationIntrospection struct {
+}
+
+// ImplementationIntrospection represents the introspection result of a graphql implementation.
+type ImplementationIntrospection struct {
+}
