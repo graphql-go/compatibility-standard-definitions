@@ -37,6 +37,8 @@ Running the library:
 
 #### Dependencies Analysis
 
+##### Markdown
+
 _Analysis date: March 12th 2025._
 
 |               | blackfriday | goldmark | go/doc/comment |
@@ -50,3 +52,14 @@ _Analysis date: March 12th 2025._
 | Parser |   ✔️   | ✔️ | ✔️ |
 | **AST Walk** |   ✔️   | ✔️ | ✔️ | 
 | Node Operations | Do have operations at node level, but obtaining the node value as a string were not possible. | Do have operations at node level, but obtaining the node value as a string were not possible. | Do have operations at node level, and it is possible to obtain the node value. |
+
+##### JSON Assert
+
+_Analysis date: March 12th 2025._
+
+|               | github.com/stretchr/testify | 
+| :---------------- | ----: |
+| GitHub URL        |  https://github.com/stretchr/testify |
+| GitHub Stars           |   24.2k |
+| Last Commit Date           |   Dec 21, 2024 |
+| JSON Assertion |  ✔️ |
