@@ -4,12 +4,14 @@ import (
 	"graphql-go/compatibility-standard-definitions/extractor"
 	"graphql-go/compatibility-standard-definitions/puller"
 	"graphql-go/compatibility-standard-definitions/types"
+	"graphql-go/compatibility-standard-definitions/validator"
 )
 
 type App struct {
 }
 
 type AppResult struct {
+	Message string
 }
 
 type AppParams struct {
@@ -28,9 +30,21 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 	}
 
 	ex := extractor.Extractor{}
-	if _, err := ex.Extract(&extractor.ExtractorParams{}); err != nil {
+	extractResult, err := ex.Extract(&extractor.ExtractorParams{})
+	if err != nil {
 		return nil, err
 	}
 
-	return &AppResult{}, nil
+	val := validator.Validator{}
+	validateResult, err := val.Validate(&validator.ValidateParams{
+		Specification:  extractResult.SpecificationIntrospection,
+		Implementation: extractResult.ImplementationIntrospection,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &AppResult{
+		Message: validateResult.Result.String(),
+	}, nil
 }
