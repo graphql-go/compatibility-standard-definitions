@@ -37,17 +37,16 @@ Running the library:
 
 #### Dependencies Analysis
 
-_Analysis date: March 7th 2025._
+_Analysis date: March 12th 2025._
 
-|               | blackfriday | goldmark |
-| :---------------- | :------: | ----: |
-| GitHub URL        |   https://github.com/russross/blackfriday   | https://github.com/yuin/goldmark |
-| GitHub Stars           |   5.5k   | 3.9k |
-| Last Commit Date           |   Oct 26, 2020   | Feb 18, 2025 |
-| **Markdown Parsing Features** |      |  |
-| Headings |   ✔️   | ✔️ |
-| **Unit Tests Support** |      |  |
-| Parser |   ✔️   | ✔️ |
-| **AST Walk** |   ✔️   | ✔️ |
-| Node API Access |   TODO   | Limited and not clear APIs to get access to each node's value, eg: https://github.com/yuin/goldmark/blob/master/ast/ast.go#L451 |
-
+|               | blackfriday | goldmark | go/doc/comment |
+| :---------------- | :------: | ----: |----: |
+| GitHub URL        |   https://github.com/russross/blackfriday   | https://github.com/yuin/goldmark | https://pkg.go.dev/go/doc/comment |
+| GitHub Stars           |   5.5k   | 3.9k | 126k |
+| Last Commit Date           |   Oct 26, 2020   | Feb 18, 2025 | Apr 11, 2022 |
+| **Markdown Parsing Features** |      |  | |
+| Headings |   ✔️   | ✔️ | ✔️ |
+| **Unit Tests Support** |      |  | |
+| Parser |   ✔️   | ✔️ | ✔️ |
+| **AST Walk** |   ✔️   | ✔️ | ✔️ | 
+| Node Operations | Do have operations at node level, but obtaining the node value as a string were not possible. | Do have operations at node level, but obtaining the node value as a string were not possible. | Do have operations at node level, and it is possible to obtain the node value. |
