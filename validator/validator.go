@@ -13,11 +13,8 @@ func (r Result) String() string {
 	switch r {
 	case Success:
 		return "SUCCESS"
-	case Failure:
-		return "FAILURE"
 	default:
-		return ""
-
+		return "FAILURE"
 	}
 
 }
