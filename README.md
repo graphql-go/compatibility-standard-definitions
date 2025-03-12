@@ -27,7 +27,7 @@ Running the library:
 
 4- `extractor`: Pulls the type system definitions from a **GraphQL implementation** via introspection.
 
-5- `validator`: Compares the type system definitions of the implementation against the specification.
+5- `validator`: Compares the type system definitions of the implementation against the specification, the comparison is in two steps first the schema then the result values.
 
 
 ### Further Work
@@ -63,3 +63,6 @@ _Analysis date: March 12th 2025._
 | GitHub Stars           |   24.2k |
 | Last Commit Date           |   Dec 21, 2024 |
 | JSON Assertion |  ✔️ |
+
+
+
