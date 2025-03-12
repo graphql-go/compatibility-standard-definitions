@@ -28,10 +28,13 @@ func main() {
 	}
 
 	app := mainApp.App{}
-	if _, err := app.Run(mainApp.AppParams{
+	appResult, err := app.Run(mainApp.AppParams{
 		Specification:  implementation.GraphqlSpecification.Repo,
 		Implementation: implementation.GraphqlGoImplementation.Repo,
-	}); err != nil {
+	})
+	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Println(appResult.Message)
 }
