@@ -57,12 +57,13 @@ _Analysis date: March 12th 2025._
 
 _Analysis date: March 12th 2025._
 
-|               | github.com/stretchr/testify | 
-| :---------------- | ----: |
-| GitHub URL        |  https://github.com/stretchr/testify |
-| GitHub Stars           |   24.2k |
-| Last Commit Date           |   Dec 21, 2024 |
-| JSON Assertion |  ✔️ |
+|               | github.com/stretchr/testify | github.com/google/go-cmp |
+| :---------------- | ----: | ----: |
+| GitHub URL        |  https://github.com/stretchr/testify | https://github.com/google/go-cmp |
+| GitHub Stars           |   24.2k | 4.3k |
+| Last Commit Date           |   Dec 21, 2024 | Jan 14, 2025 |
+| JSON Assertion |  ✔️ | ✔️ |
+| Configurable Output |  ❌ | ✔️ |
 
 
 
