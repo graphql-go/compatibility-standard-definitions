@@ -1,15 +1,19 @@
 package extractor
 
 import (
-	"log"
 	"os"
 	"strings"
 
 	"go/doc/comment"
+	"graphql-go/compatibility-standard-definitions/types"
 )
 
 type ExtractorParams struct{}
-type ExtractorResult struct{}
+
+type ExtractorResult struct {
+	SpecificationIntrospection  types.SpecificationIntrospection
+	ImplementationIntrospection types.ImplementationIntrospection
+}
 
 type Extractor struct {
 }
@@ -29,14 +33,17 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 				switch val := t.(type) {
 				case comment.Plain:
 					if strings.HasPrefix(string(val), "##") {
-						log.Println(string(val))
+						// log.Println(string(val))
 					}
 				}
 			}
 		}
 	}
 
-	return &ExtractorResult{}, nil
+	return &ExtractorResult{
+		SpecificationIntrospection:  types.SpecificationIntrospection{},
+		ImplementationIntrospection: types.ImplementationIntrospection{},
+	}, nil
 }
 
 func (e *Extractor) readTypeSystem() ([]byte, error) {
