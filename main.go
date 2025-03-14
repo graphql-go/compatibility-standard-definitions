@@ -36,5 +36,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println(appResult.Message)
+	log.Println(appResult.Status)
+
+	if appResult.Details != "" {
+		log.Println(appResult.Details)
+	}
 }

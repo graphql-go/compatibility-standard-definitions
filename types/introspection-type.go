@@ -11,44 +11,44 @@ type IntrospectionScalarType struct {
 }
 
 type IntrospectionObjectType struct {
-	kind        string             `json:"kind"`
-	name        string             `json:"name"`
-	description string             `json:"description"`
-	fields      IntrospectionField `json:"fields"`
+	Kind        string             `json:"kind"`
+	Name        string             `json:"name"`
+	Description string             `json:"description"`
+	Fields      IntrospectionField `json:"fields"`
 	// TODO(@chris-ramon): Replace interface{} with other strategy.
-	interfaces interface{} `json:"interfaces"`
+	Interfaces interface{} `json:"interfaces"`
 }
 
 type IntrospectionInterfaceType struct {
-	kind        string             `json:"kind"`
-	name        string             `json:"name"`
-	description string             `json:"description"`
-	fields      IntrospectionField `json:"fields"`
+	Kind        string             `json:"kind"`
+	Name        string             `json:"name"`
+	Description string             `json:"description"`
+	Fields      IntrospectionField `json:"fields"`
 	// TODO(@chris-ramon): Replace interface{} with other strategy.
-	interfaces interface{} `json:"interfaces"`
+	Interfaces interface{} `json:"interfaces"`
 	// possibleTypes IntrospectionObjectType    `json:"possibleTypes"`
 }
 
 type IntrospectionUnionType struct {
-	kind          string                  `json:"kind"`
-	name          string                  `json:"name"`
-	description   string                  `json:"description"`
-	possibleTypes IntrospectionObjectType `json:"possibleTypes"`
+	Kind          string                  `json:"kind"`
+	Name          string                  `json:"name"`
+	Description   string                  `json:"description"`
+	PossibleTypes IntrospectionObjectType `json:"possibleTypes"`
 }
 
 type IntrospectionEnumType struct {
-	kind        string `json:"kind"`
-	name        string `json:"name"`
-	description string `json:"description"`
+	Kind        string `json:"kind"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 	// TODO(@chris-ramon)
 	// enumValues  IntrospectionEnumValue `json:"enumValues"`
 }
 
 type IntrospectionInputObjectType struct {
-	kind        string `json:"kind"`
-	name        string `json:"name"`
-	description string `json:"description"`
+	Kind        string `json:"kind"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 	// TODO(@chris-ramon)
 	// inputFields IntrospectionInputValue `json:"inputFields"`
-	isOneOf bool `json:"isOneOf"`
+	IsOneOf bool `json:"isOneOf"`
 }

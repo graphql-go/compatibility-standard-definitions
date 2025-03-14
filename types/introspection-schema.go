@@ -1,10 +1,10 @@
 package types
 
 type IntrospectionSchema struct {
-	description      string                  `json:"description"`
-	queryType        IntrospectionObjectType `json:"queryType"`
-	mutationType     IntrospectionObjectType `json:"mutationType"`
-	subscriptionType IntrospectionObjectType `json:"subscriptionType"`
-	types            IntrospectionType       `json:"types"`
-	directives       IntrospectionDirective  `json:"directives"`
+	Description      string                  `json:"description"`
+	QueryType        IntrospectionObjectType `json:"queryType"`
+	MutationType     IntrospectionObjectType `json:"mutationType"`
+	SubscriptionType IntrospectionObjectType `json:"subscriptionType"`
+	Types            IntrospectionType       `json:"types"`
+	Directives       IntrospectionDirective  `json:"directives"`
 }
