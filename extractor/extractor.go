@@ -24,7 +24,6 @@ type ExtractorResult struct {
 
 // Extract extracts and return the introspection result from the specification and a given implementation.
 func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
-
 	specificationIntrospection, err := e.extractSpec()
 	if err != nil {
 		return nil, err
@@ -48,6 +47,15 @@ func (e *Extractor) readTypeSystem() ([]byte, error) {
 
 // extractSpec extracts and returns the introspection result of the graphql specification.
 func (e *Extractor) extractSpec() (types.SpecificationIntrospection, error) {
+	if _, err := parseSpec(); err != nil {
+		return nil, err
+	}
+
+	return types.SpecificationIntrospection{}, nil
+}
+
+// parseSpec parses and returns the introspection result of the graphql specification from the specification github repository.
+func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 	rawMarkdown, err := e.readTypeSystem()
 	if err != nil {
 		return types.SpecificationIntrospection{}, err
@@ -68,6 +76,4 @@ func (e *Extractor) extractSpec() (types.SpecificationIntrospection, error) {
 			}
 		}
 	}
-
-	return types.SpecificationIntrospection{}, nil
 }
