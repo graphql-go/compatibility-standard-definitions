@@ -36,5 +36,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println(appResult.Message)
+	log.Println(appResult.Status)
+	log.Println(appResult.Details)
 }
