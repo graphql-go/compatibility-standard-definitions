@@ -11,7 +11,8 @@ type App struct {
 }
 
 type AppResult struct {
-	Message string
+	Status  string
+	Details string
 }
 
 type AppParams struct {
@@ -45,6 +46,7 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 	}
 
 	return &AppResult{
-		Message: validateResult.Result.String(),
+		Status:  validateResult.Result.String(),
+		Details: validateResult.Difference,
 	}, nil
 }
