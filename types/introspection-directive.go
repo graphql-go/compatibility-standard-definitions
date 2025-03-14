@@ -1,11 +1,11 @@
 package types
 
 type IntrospectionDirective struct {
-	Name         string                  `json:"name"`
-	Description  string                  `json:"description"`
-	IsRepeatable bool                    `json:"isRepeatable"`
-	Locations    DirectiveLocation       `json:"locations"`
-	Args         IntrospectionInputValue `json:"args"`
+	Name         string                    `json:"name"`
+	Description  string                    `json:"description"`
+	IsRepeatable bool                      `json:"isRepeatable"`
+	Locations    []DirectiveLocation       `json:"locations"`
+	Args         []IntrospectionInputValue `json:"args"`
 }
 
 type DirectiveLocation string
