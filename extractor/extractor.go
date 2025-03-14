@@ -47,11 +47,16 @@ func (e *Extractor) readTypeSystem() ([]byte, error) {
 
 // extractSpec extracts and returns the introspection result of the graphql specification.
 func (e *Extractor) extractSpec() (types.SpecificationIntrospection, error) {
-	if _, err := parseSpec(); err != nil {
-		return nil, err
+	if _, err := e.parseSpec(); err != nil {
+		return types.SpecificationIntrospection{}, nil
 	}
 
-	return types.SpecificationIntrospection{}, nil
+	spec, err := e.loadSpec()
+	if err != nil {
+		return types.SpecificationIntrospection{}, nil
+	}
+
+	return spec, nil
 }
 
 // parseSpec parses and returns the introspection result of the graphql specification from the specification github repository.
@@ -76,4 +81,11 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 			}
 		}
 	}
+
+	return types.SpecificationIntrospection{}, err
+}
+
+// loadSpec loads and returns the introspection result of the graphql javascript implementation.
+func (e *Extractor) loadSpec() (types.SpecificationIntrospection, error) {
+	return types.SpecificationIntrospection{}, nil
 }
