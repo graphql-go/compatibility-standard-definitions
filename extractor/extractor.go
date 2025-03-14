@@ -1,12 +1,16 @@
 package extractor
 
 import (
+	"encoding/json"
+	"io"
 	"os"
 	"strings"
 
 	"go/doc/comment"
 	"graphql-go/compatibility-standard-definitions/types"
 )
+
+const queryResultFilePath string = "./graphql-js-introspection/query-result.json"
 
 // Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
@@ -30,7 +34,7 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 	}
 
 	return &ExtractorResult{
-		SpecificationIntrospection:  specificationIntrospection,
+		SpecificationIntrospection:  *specificationIntrospection,
 		ImplementationIntrospection: types.ImplementationIntrospection{},
 	}, nil
 }
@@ -46,14 +50,14 @@ func (e *Extractor) readTypeSystem() ([]byte, error) {
 }
 
 // extractSpec extracts and returns the introspection result of the graphql specification.
-func (e *Extractor) extractSpec() (types.SpecificationIntrospection, error) {
+func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 	if _, err := e.parseSpec(); err != nil {
-		return types.SpecificationIntrospection{}, nil
+		return nil, err
 	}
 
 	spec, err := e.loadSpec()
 	if err != nil {
-		return types.SpecificationIntrospection{}, nil
+		return nil, err
 	}
 
 	return spec, nil
@@ -86,6 +90,23 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 }
 
 // loadSpec loads and returns the introspection result of the graphql javascript implementation.
-func (e *Extractor) loadSpec() (types.SpecificationIntrospection, error) {
-	return types.SpecificationIntrospection{}, nil
+func (e *Extractor) loadSpec() (*types.SpecificationIntrospection, error) {
+	queryResultFile, err := os.Open(queryResultFilePath)
+	if err != nil {
+		return nil, err
+	}
+
+	queryResult, err := io.ReadAll(queryResultFile)
+	if err != nil {
+		return nil, err
+	}
+
+	result := &types.IntrospectionQueryResult{}
+	if err := json.Unmarshal(queryResult, result); err != nil {
+		return nil, err
+	}
+
+	return &types.SpecificationIntrospection{
+		QueryResult: *result,
+	}, nil
 }
