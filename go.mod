@@ -7,7 +7,7 @@ toolchain go1.23.7
 require (
 	github.com/charmbracelet/bubbletea v1.3.4
 	github.com/go-git/go-git/v5 v5.14.0
-	github.com/russross/blackfriday/v2 v2.1.0
+	github.com/google/go-cmp v0.7.0
 )
 
 require (
