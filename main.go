@@ -37,5 +37,8 @@ func main() {
 	}
 
 	log.Println(appResult.Status)
-	log.Println(appResult.Details)
+
+	if appResult.Details != "" {
+		log.Println(appResult.Details)
+	}
 }
