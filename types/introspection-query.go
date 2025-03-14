@@ -1,5 +1,5 @@
 package types
 
 type IntrospectionQueryResult struct {
-	Schema IntrospectionSchema `json:"schema"`
+	Schema IntrospectionSchema `json:"__schema"`
 }
