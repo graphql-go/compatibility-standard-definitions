@@ -1,8 +1,6 @@
 package validator
 
 import (
-	"log"
-
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"graphql-go/compatibility-standard-definitions/types"
@@ -45,12 +43,18 @@ type ValidateResult struct {
 func (v *Validator) Validate(params *ValidateParams) (*ValidateResult, error) {
 	diff := cmp.Diff(params.Specification.QueryResult,
 		params.Implementation.QueryResult,
-		cmpopts.IgnoreUnexported(types.IntrospectionQueryResult{}),
+		cmpopts.IgnoreUnexported(types.IntrospectionSchema{}),
 	)
 
-	log.Println(diff)
+	if diff != "" {
+		return &ValidateResult{
+			Result:     Failure,
+			Difference: diff,
+		}, nil
+	}
 
 	return &ValidateResult{
+		Result:     Success,
 		Difference: diff,
 	}, nil
 }
