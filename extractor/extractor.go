@@ -46,6 +46,7 @@ func (e *Extractor) readTypeSystem() ([]byte, error) {
 	return f, nil
 }
 
+// extractSpec extracts and returns the introspection result of the graphql specification.
 func (e *Extractor) extractSpec() (types.SpecificationIntrospection, error) {
 	rawMarkdown, err := e.readTypeSystem()
 	if err != nil {
