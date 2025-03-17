@@ -27,7 +27,10 @@ type ExtractorParams struct {
 
 // ExtractorResult represents the result of the extract method.
 type ExtractorResult struct {
-	SpecificationIntrospection  *types.SpecificationIntrospection
+	// SpecificationIntrospection is the introspection types of the graphql specification.
+	SpecificationIntrospection *types.SpecificationIntrospection
+
+	// ImplementationIntrospection is the introspection types of a graphql implementation.
 	ImplementationIntrospection *types.ImplementationIntrospection
 }
 
