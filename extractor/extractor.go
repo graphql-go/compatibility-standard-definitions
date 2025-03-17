@@ -78,6 +78,8 @@ func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection,
 		return nil, err
 	}
 
+	log.Println(string(introspectionQuery))
+
 	return &types.ImplementationIntrospection{}, nil
 }
 
