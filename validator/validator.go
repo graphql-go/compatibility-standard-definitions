@@ -29,8 +29,8 @@ type Validator struct {
 
 // ValidateParams represents the parameters for the validate method.
 type ValidateParams struct {
-	Specification  types.SpecificationIntrospection
-	Implementation types.ImplementationIntrospection
+	Specification  *types.SpecificationIntrospection
+	Implementation *types.ImplementationIntrospection
 }
 
 // ValidateResult represents the result of the validate method.
