@@ -11,8 +11,10 @@ import (
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
+// queryResultFilePath is the file path of the introspection result against the graphql javascript implementation.
 const queryResultFilePath string = "./graphql-js-introspection/query-result.json"
 
+// introspectionQueryFilePath is the file path of the introspection query of the graphql javascript implementation.
 const introspectionQueryFilePath string = "./graphql-js-introspection/query.graphql"
 
 // Extractor represents the component that handles the extraction of standard definitions.
