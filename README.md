@@ -26,17 +26,19 @@ Running the library:
 
 3- `puller`: Git clones a **GraphQL implementation repository**.
 
-4- `extractor`: Pulls the type system definitions from the **GraphQL specification repository**.
+4- `extractor`: Pulls the type system definitions by parsing from the **GraphQL specification repository**.
 
-5- `extractor`: Pulls the type system definitions from the **GraphQL JavaScript reference implementation** via introspection.
+5- `extractor`: Pulls the type system definitions by introspection from the **GraphQL JavaScript reference implementation**.
 
-6- `extractor`: Pulls the type system definitions from a **GraphQL implementation** via introspection.
+6- `extractor`: Pulls the type system definitions by introspection from a **GraphQL implementation**.
 
-7- `validator`: Validates the schema of the **GraphQL specification** against the **GraphQL JavaScript reference implementation** schema.
+7- `executor`: Executes the type system definitions introspection result on a **GraphQL implementation**.
 
-8- `validator`: Validates the schema of the **GraphQL implementation** against the **GraphQL specification** schema.
+8- `validator`: Validates by comparing the schema of the **GraphQL specification** against the **GraphQL JavaScript reference implementation** schema.
 
-9- `validator`: Compares the type system definitions of the specification against an implementation.
+9- `validator`: Validates by comparing the schema of the **GraphQL implementation** against the **GraphQL specification** schema.
+
+10- `validator`: Compares the type system definitions of the specification against an implementation.
 
 
 Notes: When validating the schema we use the JavaScript reference implementation as middle layer for confirming that the specification is up-to-date. 
