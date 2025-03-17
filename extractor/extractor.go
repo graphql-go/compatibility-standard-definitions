@@ -3,6 +3,7 @@ package extractor
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"os"
 	"strings"
 
@@ -11,6 +12,8 @@ import (
 )
 
 const queryResultFilePath string = "./graphql-js-introspection/query-result.json"
+
+const introspectionQueryFilePath string = "./graphql-js-introspection/query.graphql"
 
 // Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
@@ -70,6 +73,11 @@ func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 
 // extractImplementation extracts and returns the introspection result of a graphql implementation.
 func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection, error) {
+	introspectionQuery, err := e.loadIntrospectionQuery()
+	if err != nil {
+		return nil, err
+	}
+
 	return &types.ImplementationIntrospection{}, nil
 }
 
@@ -120,4 +128,20 @@ func (e *Extractor) loadSpec() (*types.SpecificationIntrospection, error) {
 	return &types.SpecificationIntrospection{
 		QueryResult: *result,
 	}, nil
+}
+
+// loadIntrospectionQuery loads and returns the introspection query of the graphql javascript implementation.
+func (e *Extractor) loadIntrospectionQuery() ([]byte, error) {
+	filePath, err := os.Open(introspectionQueryFilePath)
+	if err != nil {
+		return nil, err
+	}
+	defer filePath.Close()
+
+	introspectionQuery, err := io.ReadAll(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	return introspectionQuery, nil
 }
