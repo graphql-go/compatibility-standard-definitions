@@ -105,6 +105,7 @@ func (e *Extractor) loadSpec() (*types.SpecificationIntrospection, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer queryResultFile.Close()
 
 	queryResult, err := io.ReadAll(queryResultFile)
 	if err != nil {
