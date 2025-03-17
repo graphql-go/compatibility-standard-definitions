@@ -22,8 +22,8 @@ type ExtractorParams struct {
 
 // ExtractorResult represents the result of the extract method.
 type ExtractorResult struct {
-	SpecificationIntrospection  types.SpecificationIntrospection
-	ImplementationIntrospection types.ImplementationIntrospection
+	SpecificationIntrospection  *types.SpecificationIntrospection
+	ImplementationIntrospection *types.ImplementationIntrospection
 }
 
 // Extract extracts and return the introspection result from the specification and a given implementation.
@@ -33,9 +33,14 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, err
 	}
 
+	implementationIntrospection, err := e.extractImplementation()
+	if err != nil {
+		return nil, err
+	}
+
 	return &ExtractorResult{
-		SpecificationIntrospection:  *specificationIntrospection,
-		ImplementationIntrospection: types.ImplementationIntrospection{},
+		SpecificationIntrospection:  specificationIntrospection,
+		ImplementationIntrospection: implementationIntrospection,
 	}, nil
 }
 
@@ -61,6 +66,11 @@ func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 	}
 
 	return spec, nil
+}
+
+// extractImplementation extracts and returns the introspection result of a graphql implementation.
+func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection, error) {
+	return &types.ImplementationIntrospection{}, nil
 }
 
 // parseSpec parses and returns the introspection result of the graphql specification from the specification github repository.
