@@ -34,7 +34,10 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 	executor := executor.New()
 
 	ex := extractor.New(executor)
-	extractResult, err := ex.Extract(&extractor.ExtractorParams{})
+	extractResult, err := ex.Extract(&extractor.ExtractorParams{
+		Implementation: params.Implementation,
+		Specification:  params.Specification,
+	})
 	if err != nil {
 		return nil, err
 	}
