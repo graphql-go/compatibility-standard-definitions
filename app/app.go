@@ -30,7 +30,7 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 		return nil, err
 	}
 
-	ex := extractor.Extractor{}
+	ex := extractor.New()
 	extractResult, err := ex.Extract(&extractor.ExtractorParams{})
 	if err != nil {
 		return nil, err
