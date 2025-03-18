@@ -17,16 +17,16 @@ type AppResult struct {
 }
 
 type AppParams struct {
-	Specification  types.Repository
-	Implementation types.Repository
+	Specification  types.Specification
+	Implementation types.Implementation
 }
 
 func (app *App) Run(params AppParams) (*AppResult, error) {
 	p := puller.Puller{}
 
 	if _, err := p.Pull(&puller.PullerParams{
-		Specification:  params.Specification,
-		Implementation: params.Implementation,
+		Specification:  params.Specification.Repo,
+		Implementation: params.Implementation.Repo,
 	}); err != nil {
 		return nil, err
 	}
