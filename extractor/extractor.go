@@ -21,6 +21,11 @@ const introspectionQueryFilePath string = "./graphql-js-introspection/query.grap
 type Extractor struct {
 }
 
+// New returns a pointer to a Extractor struct.
+func New() *Extractor {
+	return &Extractor{}
+}
+
 // ExtractorParams represents the parameters of the extract method.
 type ExtractorParams struct {
 }
