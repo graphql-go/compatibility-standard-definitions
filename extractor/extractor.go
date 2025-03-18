@@ -32,6 +32,8 @@ func New(executor *executor.Executor) *Extractor {
 
 // ExtractorParams represents the parameters of the extract method.
 type ExtractorParams struct {
+	Specification  types.Implementation
+	Implementation types.Implementation
 }
 
 // ExtractorResult represents the result of the extract method.
