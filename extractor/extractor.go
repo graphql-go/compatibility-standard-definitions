@@ -3,7 +3,6 @@ package extractor
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"os"
 	"strings"
 
@@ -92,17 +91,15 @@ func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection,
 		return nil, err
 	}
 
-	result, err := e.executor.Execute(executor.ExecuteParams{
+	if _, err := e.executor.Execute(executor.ExecuteParams{
 		Implementation: types.Implementation{
 			Introspection: types.Introspection{
 				Query: string(introspectionQuery),
 			},
 		},
-	})
-	if err != nil {
+	}); err != nil {
 		return nil, err
 	}
-	log.Println(result)
 
 	return &types.ImplementationIntrospection{}, nil
 }
