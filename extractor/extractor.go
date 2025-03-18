@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"go/doc/comment"
+	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
@@ -19,11 +20,11 @@ const introspectionQueryFilePath string = "./graphql-js-introspection/query.grap
 
 // Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
-	executor executor.Executor
+	executor *executor.Executor
 }
 
 // New returns a pointer to a Extractor struct.
-func New(executor executor.Executor) *Extractor {
+func New(executor *executor.Executor) *Extractor {
 	return &Extractor{
 		executor: executor,
 	}
@@ -91,7 +92,17 @@ func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection,
 		return nil, err
 	}
 
-	log.Println(string(introspectionQuery))
+	result, err := e.executor.Execute(executor.ExecuteParams{
+		Implementation: types.Implementation{
+			Introspection: types.Introspection{
+				Query: string(introspectionQuery),
+			},
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+	log.Println(result)
 
 	return &types.ImplementationIntrospection{}, nil
 }
