@@ -5,6 +5,7 @@ import (
 
 	mainApp "graphql-go/compatibility-standard-definitions/app"
 	"graphql-go/compatibility-standard-definitions/cmd"
+	"graphql-go/compatibility-standard-definitions/config"
 	"graphql-go/compatibility-standard-definitions/implementation"
 )
 
@@ -29,16 +30,18 @@ func main() {
 
 	app := mainApp.App{}
 	appResult, err := app.Run(mainApp.AppParams{
-		Specification:  implementation.GraphqlSpecification.Repo,
-		Implementation: implementation.GraphqlGoImplementation.Repo,
+		Specification:  implementation.GraphqlSpecification,
+		Implementation: implementation.GraphqlGoImplementation,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	cfg := config.New()
+
 	log.Println(appResult.Status)
 
-	if appResult.Details != "" {
+	if appResult.Details != "" && cfg.IsDebug == false {
 		log.Println(appResult.Details)
 	}
 }

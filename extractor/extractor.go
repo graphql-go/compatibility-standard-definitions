@@ -3,11 +3,11 @@ package extractor
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"os"
 	"strings"
 
 	"go/doc/comment"
+	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
@@ -19,10 +19,21 @@ const introspectionQueryFilePath string = "./graphql-js-introspection/query.grap
 
 // Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
+	// executor is the executor component that extractor delegates the execution of a graphql introspection query.
+	executor *executor.Executor
+}
+
+// New returns a pointer to a Extractor struct.
+func New(executor *executor.Executor) *Extractor {
+	return &Extractor{
+		executor: executor,
+	}
 }
 
 // ExtractorParams represents the parameters of the extract method.
 type ExtractorParams struct {
+	Implementation types.Implementation
+	Specification  types.Specification
 }
 
 // ExtractorResult represents the result of the extract method.
@@ -41,7 +52,7 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, err
 	}
 
-	implementationIntrospection, err := e.extractImplementation()
+	implementationIntrospection, err := e.extractImplementation(params.Implementation)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +88,21 @@ func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 }
 
 // extractImplementation extracts and returns the introspection result of a graphql implementation.
-func (e *Extractor) extractImplementation() (*types.ImplementationIntrospection, error) {
+func (e *Extractor) extractImplementation(implementation types.Implementation) (*types.ImplementationIntrospection, error) {
 	introspectionQuery, err := e.loadIntrospectionQuery()
 	if err != nil {
 		return nil, err
 	}
 
-	log.Println(string(introspectionQuery))
+	implementation.Introspection = types.Introspection{
+		Query: string(introspectionQuery),
+	}
+
+	if _, err := e.executor.Execute(executor.ExecuteParams{
+		Implementation: implementation,
+	}); err != nil {
+		return nil, err
+	}
 
 	return &types.ImplementationIntrospection{}, nil
 }
