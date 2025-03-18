@@ -30,8 +30,8 @@ func main() {
 
 	app := mainApp.App{}
 	appResult, err := app.Run(mainApp.AppParams{
-		Specification:  implementation.GraphqlSpecification.Repo,
-		Implementation: implementation.GraphqlGoImplementation.Repo,
+		Specification:  implementation.GraphqlSpecification,
+		Implementation: implementation.GraphqlGoImplementation,
 	})
 	if err != nil {
 		log.Fatal(err)
