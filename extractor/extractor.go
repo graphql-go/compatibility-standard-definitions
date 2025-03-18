@@ -19,11 +19,14 @@ const introspectionQueryFilePath string = "./graphql-js-introspection/query.grap
 
 // Extractor represents the component that handles the extraction of standard definitions.
 type Extractor struct {
+	executor executor.Executor
 }
 
 // New returns a pointer to a Extractor struct.
-func New() *Extractor {
-	return &Extractor{}
+func New(executor executor.Executor) *Extractor {
+	return &Extractor{
+		executor: executor,
+	}
 }
 
 // ExtractorParams represents the parameters of the extract method.
