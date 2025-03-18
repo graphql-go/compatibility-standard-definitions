@@ -2,11 +2,11 @@ package executor
 
 import (
 	"graphql-go/compatibility-standard-definitions/types"
-	"log"
 )
 
 // Executor handles the resolution of a graphql introspection query.
 type Executor struct {
+	goExecutor Go
 }
 
 // New returns a pointer to the Executor struct.
@@ -26,9 +26,15 @@ type ExecuteParams struct {
 
 // Execute executes and returns the resolution of a graphql introspection query.
 func (e *Executor) Execute(params ExecuteParams) (*ExecuteResult, error) {
-	log.Println(params.Implementation.Repo.Dir)
-	log.Println(params.Implementation.Introspection.Query)
+	runParams := &RunParams{
+		Query: params.Implementation.Introspection.Query,
+	}
+	result, err := e.goExecutor.Run(runParams)
+	if err != nil {
+		return nil, err
+	}
+
 	return &ExecuteResult{
-		Result: "",
+		Result: result.Result,
 	}, nil
 }
