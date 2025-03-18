@@ -23,9 +23,14 @@ func (r *Repository) String(prefix string) string {
 	return fmt.Sprintf(base, r.URL, r.ReferenceName)
 }
 
+type Introspection struct {
+	Query string
+}
+
 type Implementation struct {
 	Repo              Repository
 	Type              ImplementationType
+	Introspection     Introspection
 	TestNames         []string
 	TestNamesFilePath string
 }
