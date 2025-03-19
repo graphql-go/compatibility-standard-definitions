@@ -9,11 +9,12 @@ import (
 	"graphql-go/compatibility-standard-definitions/implementation"
 )
 
-var choices = []string{}
+// implementationChoices is the list of graphql implementation choices.
+var implementationChoices = []string{}
 
 func init() {
 	for _, i := range implementation.Implementations {
-		choices = append(choices, i.Repo.String(implementation.ImplementationPrefix))
+		implementationChoices = append(implementationChoices, i.Repo.String(implementation.ImplementationPrefix))
 	}
 }
 
@@ -22,14 +23,14 @@ func main() {
 
 	cli := cmd.CLI{}
 	if _, err := cli.Run(&cmd.RunParams{
-		Choices: choices,
+		Choices: implementationChoices,
 		Header:  header,
 	}); err != nil {
 		log.Fatal(err)
 	}
 
 	app := mainApp.App{}
-	appResult, err := app.Run(mainApp.AppParams{
+	runResult, err := app.Run(mainApp.RunParams{
 		Specification:  implementation.GraphqlSpecification,
 		Implementation: implementation.GraphqlGoImplementation,
 	})
@@ -39,9 +40,9 @@ func main() {
 
 	cfg := config.New()
 
-	log.Println(appResult.Status)
+	log.Println(runResult.Status)
 
-	if appResult.Details != "" && cfg.IsDebug == false {
-		log.Println(appResult.Details)
+	if runResult.Details != "" && cfg.IsDebug == false {
+		log.Println(runResult.Details)
 	}
 }
