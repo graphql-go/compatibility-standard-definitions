@@ -40,7 +40,7 @@ func (r *Repository) String(prefix string) string {
 
 // Introspection represents a graphql introspection.
 type Introspection struct {
-  // Query is the introspection query.
+	// Query is the introspection query.
 	Query string
 }
 
@@ -57,6 +57,9 @@ type Implementation struct {
 
 	// TestNamesFilePath is the file path of the test names.
 	TestNamesFilePath string
+
+	// Introspection is the introspection of the implementation.
+	Introspection Introspection
 }
 
 // MapKey returns the map key of the implementation.
