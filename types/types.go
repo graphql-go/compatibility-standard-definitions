@@ -2,20 +2,33 @@ package types
 
 import "fmt"
 
+// taggedRepoURL is the repo url of a tag of releases.
 const taggedRepoURL string = "%s/releases/tag/%s"
 
+// ImplementationType is the type of implementations.
 type ImplementationType uint
 
 const (
+	// GoImplementationType is the type of a go implementation.
 	GoImplementationType = iota + 1
+
+	// RefImplementationType is the type of the graphql reference implementation.
 	RefImplementationType
 )
 
+// Repository represents the code repository of a graphql implementation.
 type Repository struct {
-	Name          string
-	URL           string
+	// Name is the code repository name.
+	Name string
+
+	// URL is the code repository URL.
+	URL string
+
+	// ReferenceName is the code repository reference name, eg. GitHub a tag.
 	ReferenceName string
-	Dir           string
+
+	// Dir is the code repository directory path.
+	Dir string
 }
 
 func (r *Repository) String(prefix string) string {
