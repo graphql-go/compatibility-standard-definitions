@@ -30,7 +30,7 @@ func main() {
 	}
 
 	app := mainApp.App{}
-	appResult, err := app.Run(mainApp.AppParams{
+	runResult, err := app.Run(mainApp.RunParams{
 		Specification:  implementation.GraphqlSpecification,
 		Implementation: implementation.GraphqlGoImplementation,
 	})
@@ -40,9 +40,9 @@ func main() {
 
 	cfg := config.New()
 
-	log.Println(appResult.Status)
+	log.Println(runResult.Status)
 
-	if appResult.Details != "" && cfg.IsDebug == false {
-		log.Println(appResult.Details)
+	if runResult.Details != "" && cfg.IsDebug == false {
+		log.Println(runResult.Details)
 	}
 }
