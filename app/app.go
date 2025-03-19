@@ -11,17 +11,17 @@ import (
 type App struct {
 }
 
-type AppResult struct {
+type RunResult struct {
 	Status  string
 	Details string
 }
 
-type AppParams struct {
+type RunParams struct {
 	Specification  types.Specification
 	Implementation types.Implementation
 }
 
-func (app *App) Run(params AppParams) (*AppResult, error) {
+func (app *App) Run(params RunParams) (*RunResult, error) {
 	p := puller.Puller{}
 
 	if _, err := p.Pull(&puller.PullerParams{
@@ -51,7 +51,7 @@ func (app *App) Run(params AppParams) (*AppResult, error) {
 		return nil, err
 	}
 
-	return &AppResult{
+	return &RunResult{
 		Status:  validateResult.Result.String(),
 		Details: validateResult.Difference,
 	}, nil
