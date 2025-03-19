@@ -1,3 +1,4 @@
+// package types defines the internal types.
 package types
 
 import "fmt"
@@ -31,27 +32,39 @@ type Repository struct {
 	Dir string
 }
 
+// String returns the string summary of the code repository.
 func (r *Repository) String(prefix string) string {
 	base := fmt.Sprintf("%s: %s\n", prefix, taggedRepoURL)
 	return fmt.Sprintf(base, r.URL, r.ReferenceName)
 }
 
+// Introspection represents a graphql introspection.
 type Introspection struct {
+  // Query is the introspection query.
 	Query string
 }
 
+// Implementation represents a graphql implementation.
 type Implementation struct {
-	Repo              Repository
-	Type              ImplementationType
-	Introspection     Introspection
-	TestNames         []string
+	// Repo is the code repository of the implementation.
+	Repo Repository
+
+	// Type is the implementation type.
+	Type ImplementationType
+
+	// TestNames is the list of test names of the implementation.
+	TestNames []string
+
+	// TestNamesFilePath is the file path of the test names.
 	TestNamesFilePath string
 }
 
+// MapKey returns the map key of the implementation.
 func (i *Implementation) MapKey(prefix string) string {
 	return i.Repo.String(prefix)
 }
 
+// Specification represents a graphql specification.
 type Specification struct {
 	Repo Repository
 }
