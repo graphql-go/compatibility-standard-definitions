@@ -38,6 +38,11 @@ var GraphqlSpecification = types.Specification{
 	},
 }
 
+// GraphqlSpecificationWithPrefix returns the graphql specification repository link with a prefix.
+func GraphqlSpecificationWithPrefix() string {
+	return GraphqlSpecification.Repo.String(SpecificationPrefix)
+}
+
 var RefImplementation = GraphqlJSImplementation
 
 var Implementations = []types.Implementation{GraphqlGoImplementation}
