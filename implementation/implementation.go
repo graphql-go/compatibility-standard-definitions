@@ -56,15 +56,3 @@ var RefImplementation = GraphqlJSImplementation
 
 // Implementations is the default list of graphql implementations.
 var Implementations = []types.Implementation{GraphqlGoImplementation}
-
-// gqlGoImplURL is the default map-key of graphql-go implementation.
-var gqlGoImplURL = GraphqlGoImplementation.MapKey(ImplementationPrefix)
-
-// jsImplURL is the default map-key of the graphql-js implementation.
-var jsImplURL = GraphqlJSImplementation.MapKey(ImplementationPrefix)
-
-// ImplementationsMap is the default map of graphql implementations.
-var ImplementationsMap = map[string]types.Implementation{
-	gqlGoImplURL: GraphqlGoImplementation,
-	jsImplURL:    GraphqlJSImplementation,
-}
