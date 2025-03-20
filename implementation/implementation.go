@@ -4,10 +4,16 @@ import (
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
+// ImplementationPrefix is the default implementation prefix.
 const ImplementationPrefix = "Implementation"
+
+// RefImplementationPrefix is the reference implementation prefix.
 const RefImplementationPrefix = "Reference Implementation"
+
+// SpecificationPrefix is a implementation prefix.
 const SpecificationPrefix = "Specification"
 
+// GraphqlGoImplementation represents the graphql-go implementation.
 var GraphqlGoImplementation = types.Implementation{
 	Repo: types.Repository{
 		Name:          "graphql-go-graphql",
@@ -18,6 +24,7 @@ var GraphqlGoImplementation = types.Implementation{
 	Type: types.GoImplementationType,
 }
 
+// GraphqlJSImplementation represents the graphql-js implementation.
 var GraphqlJSImplementation = types.Implementation{
 	Repo: types.Repository{
 		Name:          "graphql-graphql-js",
@@ -29,6 +36,7 @@ var GraphqlJSImplementation = types.Implementation{
 	TestNamesFilePath: "./puller-js/unit-tests.txt",
 }
 
+// GraphqlSpecification represents the graphql specification.
 var GraphqlSpecification = types.Specification{
 	Repo: types.Repository{
 		Name:          "graphql-specification",
@@ -43,13 +51,19 @@ func GraphqlSpecificationWithPrefix() string {
 	return GraphqlSpecification.Repo.String(SpecificationPrefix)
 }
 
+// RefImplementation is the default reference implementation.
 var RefImplementation = GraphqlJSImplementation
 
+// Implementations is the default list of graphql implementations.
 var Implementations = []types.Implementation{GraphqlGoImplementation}
 
+// gqlGoImplURL is the default map-key of graphql-go implementation.
 var gqlGoImplURL = GraphqlGoImplementation.MapKey(ImplementationPrefix)
+
+// jsImplURL is the default map-key of the graphql-js implementation.
 var jsImplURL = GraphqlJSImplementation.MapKey(ImplementationPrefix)
 
+// ImplementationsMap is the default map of graphql implementations.
 var ImplementationsMap = map[string]types.Implementation{
 	gqlGoImplURL: GraphqlGoImplementation,
 	jsImplURL:    GraphqlJSImplementation,
