@@ -11,12 +11,10 @@ import (
 )
 
 func main() {
-	header := implementation.GraphqlSpecification.Repo.String(implementation.SpecificationPrefix)
-
 	cli := cmd.CLI{}
 	if _, err := cli.Run(&cmd.RunParams{
 		Choices: mapper.AvailableImplementations(),
-		Header:  header,
+		Header:  implementation.GraphqlSpecificationWithPrefix(),
 	}); err != nil {
 		log.Fatal(err)
 	}
