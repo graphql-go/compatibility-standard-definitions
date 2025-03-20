@@ -27,7 +27,7 @@ type RunParams struct {
 	Implementation types.Implementation
 }
 
-// Run runs and returns the application.
+// Run runs and returns the application result.
 func (app *App) Run(params RunParams) (*RunResult, error) {
 	p := puller.Puller{}
 

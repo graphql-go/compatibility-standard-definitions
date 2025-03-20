@@ -19,10 +19,10 @@ type Puller struct {
 
 // PullerParams represents the parameters of the pull method.
 type PullerParams struct {
-	// Specification is the repository of the graphql specification.
+	// Specification is the code repository of the graphql specification.
 	Specification types.Repository
 
-	// Implementation is the repository of the graphql implementation.
+	// Implementation is the code repository of the graphql implementation.
 	Implementation types.Repository
 }
 
