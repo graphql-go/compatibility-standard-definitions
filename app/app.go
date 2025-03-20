@@ -8,19 +8,26 @@ import (
 	"graphql-go/compatibility-standard-definitions/validator"
 )
 
+// App represents the high level entry point for the application.
 type App struct {
 }
 
+// RunResult represents the result of the run method.
 type RunResult struct {
 	Status  string
 	Details string
 }
 
+// RunParams represents the params of the run method.
 type RunParams struct {
-	Specification  types.Specification
+	// Specification is the graphql specification.
+	Specification types.Specification
+
+	// Implementation is the graphql implementation.
 	Implementation types.Implementation
 }
 
+// Run runs and returns the application result.
 func (app *App) Run(params RunParams) (*RunResult, error) {
 	p := puller.Puller{}
 

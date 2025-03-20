@@ -10,19 +10,27 @@ import (
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
+// reposDirName is the code repository root directory name.
 const reposDirName = "repos"
 
+// Puller represents the puller component.
 type Puller struct {
 }
 
-type PullerResult struct {
-}
-
+// PullerParams represents the parameters of the pull method.
 type PullerParams struct {
-	Specification  types.Repository
+	// Specification is the code repository of the graphql specification.
+	Specification types.Repository
+
+	// Implementation is the code repository of the graphql implementation.
 	Implementation types.Repository
 }
 
+// PullerResult represents the result of the pull method.
+type PullerResult struct {
+}
+
+// Pull pulls a set of code repositories and returns if it succeeded or not.
 func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 	repos := []types.Repository{
 		params.Specification,

@@ -6,13 +6,18 @@ import (
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
+// Result represents a result type of the validator component.
 type Result bool
 
 const (
+	// Success represents a success result.
 	Success Result = true
+
+	// Failure represents a failure result.
 	Failure Result = false
 )
 
+// String returns the string representation of the result.
 func (r Result) String() string {
 	switch r {
 	case Success:
