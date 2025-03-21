@@ -12,7 +12,7 @@ var RootQuery = graphql.ObjectConfig{
 	Fields: graphql.Fields{
 		"echo": &graphql.Field{
 			Type: graphql.String,
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			Resolve: func(_ graphql.ResolveParams) (interface{}, error) {
 				return "ok", nil
 			},
 		},
