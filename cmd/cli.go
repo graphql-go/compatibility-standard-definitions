@@ -20,9 +20,9 @@ type RunParams struct {
 }
 
 func (c *CLI) Run(p *RunParams) (*RunResult, error) {
-	bt := bubbletea.NewBubbleTea(&bubbletea.BubbleTeaParams{
+	bt := bubbletea.New(&bubbletea.Params{
 		Choices: p.Choices,
-		UI: bubbletea.BubbleTeaUIParams{
+		UI: bubbletea.UIParams{
 			Header: p.Header,
 		},
 	})
