@@ -74,16 +74,16 @@ type RunResult struct {
 	Choice string
 }
 
-type BubbleTeaParams struct {
+type Params struct {
 	Choices []string
-	UI      BubbleTeaUIParams
+	UI      UIParams
 }
 
-type BubbleTeaUIParams struct {
+type UIParams struct {
 	Header string
 }
 
-func NewBubbleTea(p *BubbleTeaParams) *BubbleTea {
+func New(p *Params) *BubbleTea {
 	return &BubbleTea{
 		choices: p.Choices,
 		ui: UI{
