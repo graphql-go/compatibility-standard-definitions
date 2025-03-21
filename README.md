@@ -47,6 +47,8 @@ Notes: When validating the schema we use the JavaScript reference implementation
 
 - The type system definition extraction from the **GraphQL specfication repository** can be used as a source for auto-generating any implementation in any programming language.
 
+- Add functionality to be used through GitHub app so it can analyze any implementation in any programming language.
+
 
 #### Dependencies Analysis
 
