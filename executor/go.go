@@ -41,7 +41,7 @@ type RunResult struct {
 func (g *Go) Run(params *RunParams) (*RunResult, error) {
 	schema, err := graphql.NewSchema(SchemaConfig)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to run: %w", err)
 	}
 
 	gqlParams := graphql.Params{
@@ -55,7 +55,7 @@ func (g *Go) Run(params *RunParams) (*RunResult, error) {
 
 	result, err := json.Marshal(doResult)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to do marshal: %w", err)
 	}
 
 	return &RunResult{

@@ -1,6 +1,7 @@
 package puller
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -40,10 +41,10 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 	if _, err := os.Stat(reposDirName); err != nil {
 		if os.IsNotExist(err) {
 			if err := os.Mkdir(reposDirName, os.ModePerm); err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to create a directory: %w", err)
 			}
 		} else {
-			return nil, err
+			return nil, fmt.Errorf("failed to check if directory exist: %w", err)
 		}
 	}
 
@@ -51,7 +52,7 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 		name := filepath.Join(reposDirName, r.Name)
 		if _, err := os.Stat(name); os.IsNotExist(err) {
 			if err := os.Mkdir(name, os.ModePerm); err != nil {
-				return nil, err
+				return nil, fmt.Errorf("failed to create a directory: %w", err)
 			}
 		}
 		if _, err := git.PlainClone(name, false, &git.CloneOptions{
@@ -61,7 +62,7 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 			if strings.Contains(err.Error(), "repository already exists") {
 				return nil, nil
 			}
-			return nil, err
+			return nil, fmt.Errorf("failed to clone a git repository: %w", err)
 		}
 	}
 

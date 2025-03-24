@@ -2,6 +2,7 @@ package extractor
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -49,12 +50,12 @@ type ExtractorResult struct {
 func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 	specificationIntrospection, err := e.extractSpec()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed extract specification: %w", err)
 	}
 
 	implementationIntrospection, err := e.extractImplementation(params.Implementation)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed extract implementation: %w", err)
 	}
 
 	return &ExtractorResult{
@@ -67,7 +68,7 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 func (e *Extractor) readTypeSystem() ([]byte, error) {
 	f, err := os.ReadFile("./repos/graphql-specification/spec/Section 3 -- Type System.md")
 	if err != nil {
-		return []byte{}, err
+		return []byte{}, fmt.Errorf("failed to read file: %w", err)
 	}
 
 	return f, nil
@@ -76,12 +77,12 @@ func (e *Extractor) readTypeSystem() ([]byte, error) {
 // extractSpec extracts and returns the introspection result of the graphql specification.
 func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 	if _, err := e.parseSpec(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed parse specification: %w", err)
 	}
 
 	spec, err := e.loadSpec()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed load specification: %w", err)
 	}
 
 	return spec, nil
@@ -91,7 +92,7 @@ func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 func (e *Extractor) extractImplementation(implementation types.Implementation) (*types.ImplementationIntrospection, error) {
 	introspectionQuery, err := e.loadIntrospectionQuery()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to load introspection query: %w", err)
 	}
 
 	implementation.Introspection = types.Introspection{
@@ -101,7 +102,7 @@ func (e *Extractor) extractImplementation(implementation types.Implementation) (
 	if _, err := e.executor.Execute(executor.ExecuteParams{
 		Implementation: implementation,
 	}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to execute: %w", err)
 	}
 
 	return &types.ImplementationIntrospection{}, nil
@@ -137,18 +138,18 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 func (e *Extractor) loadSpec() (*types.SpecificationIntrospection, error) {
 	queryResultFile, err := os.Open(queryResultFilePath)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open file: %w", err)
 	}
 	defer queryResultFile.Close()
 
 	queryResult, err := io.ReadAll(queryResultFile)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
 
 	result := &types.IntrospectionQueryResult{}
 	if err := json.Unmarshal(queryResult, result); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal: %w", err)
 	}
 
 	return &types.SpecificationIntrospection{
@@ -160,13 +161,13 @@ func (e *Extractor) loadSpec() (*types.SpecificationIntrospection, error) {
 func (e *Extractor) loadIntrospectionQuery() ([]byte, error) {
 	filePath, err := os.Open(introspectionQueryFilePath)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open file: %w", err)
 	}
 	defer filePath.Close()
 
 	introspectionQuery, err := io.ReadAll(filePath)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
 
 	return introspectionQuery, nil

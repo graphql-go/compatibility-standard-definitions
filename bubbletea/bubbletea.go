@@ -1,6 +1,7 @@
 package bubbletea
 
 import (
+	"fmt"
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -97,7 +98,7 @@ func (b *BubbleTea) Run() (*RunResult, error) {
 
 	m, err := teaProgram.Run()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failde to run: %w", err)
 	}
 
 	result := &RunResult{}

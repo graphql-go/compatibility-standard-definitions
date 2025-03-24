@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"graphql-go/compatibility-standard-definitions/bubbletea"
 )
 
@@ -29,7 +30,7 @@ func (c *CLI) Run(p *RunParams) (*RunResult, error) {
 
 	btRunResult, err := bt.Run()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to run: %w", err)
 	}
 
 	return &RunResult{
