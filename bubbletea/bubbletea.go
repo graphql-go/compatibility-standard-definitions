@@ -23,30 +23,32 @@ func (b BubbleTea) Init() tea.Cmd {
 }
 
 func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ireturn
-	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		switch msg.String() {
-		case "ctrl+c", "q", "esc":
-			return b, tea.Quit
+	keyMsg, ok := msg.(tea.KeyMsg)
+	if !ok {
+		return b, tea.Quit
+	}
 
-		case "enter":
-			if len(b.choices) > 0 {
-				b.choice = b.choices[b.cursor]
-			}
+	switch keyMsg.String() {
+	case "ctrl+c", "q", "esc":
+		return b, tea.Quit
 
-			return b, tea.Quit
+	case "enter":
+		if len(b.choices) > 0 {
+			b.choice = b.choices[b.cursor]
+		}
 
-		case "down", "j":
-			b.cursor++
-			if b.cursor >= len(b.choices) {
-				b.cursor = 0
-			}
+		return b, tea.Quit
 
-		case "up", "k":
-			b.cursor--
-			if b.cursor < 0 {
-				b.cursor = len(b.choices) - 1
-			}
+	case "down", "j":
+		b.cursor++
+		if b.cursor >= len(b.choices) {
+			b.cursor = 0
+		}
+
+	case "up", "k":
+		b.cursor--
+		if b.cursor < 0 {
+			b.cursor = len(b.choices) - 1
 		}
 	}
 
