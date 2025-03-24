@@ -26,27 +26,49 @@ type Config struct {
 	// Implementations is the default list of graphql implementations.
 	Implementations []types.Implementation
 
-	// GraphqlSpecificationWithPrefix returns the graphql specification repository link with a prefix.
+	// GraphqlSpecificationWithPrefix represents the graphql specification repository link with a prefix.
 	GraphqlSpecificationWithPrefix string
 
-	// AvailableImplementations returns a list of available implementations.
+	// AvailableImplementations represents a list of available implementations.
 	AvailableImplementations []string
 }
 
 // New returns a pointer to a Config struct.
 func New() *Config {
-	debug := os.Getenv("DEBUG")
+	isDebug := isDebug()
+	graphqlGoImplementation := graphqlGoImplementation()
+	graphqlJSImplementation := graphqlJSImplementation()
+	graphqlSpecification := graphqlSpecification()
+	implementations := []types.Implementation{graphqlGoImplementation}
+	graphqlSpecificationWithPrefix := graphqlSpecificationWithPrefix(graphqlSpecification)
+	availableImplementations := availableImplementations(implementations)
 
-	isDebug := false
-	if debug == "true" {
-		isDebug = true
+	return &Config{
+		IsDebug:                        isDebug,
+		GraphqlGoImplementation:        graphqlGoImplementation,
+		GraphqlJSImplementation:        graphqlJSImplementation,
+		GraphqlSpecification:           graphqlSpecification,
+		RefImplementation:              graphqlJSImplementation,
+		Implementations:                implementations,
+		GraphqlSpecificationWithPrefix: graphqlSpecificationWithPrefix,
+		AvailableImplementations:       availableImplementations,
+	}
+}
+
+// availableImplementations returns a list of available implementations.
+func availableImplementations(implementations []types.Implementation) []string {
+	var result = []string{}
+
+	for _, i := range implementations {
+		result = append(result, i.Repo.String(implementation.ImplementationPrefix))
 	}
 
-	cfg := &Config{
-		IsDebug: isDebug,
-	}
+	return result
+}
 
-	cfg.GraphqlGoImplementation = types.Implementation{
+// graphqlGoImplementation returns the graphql-go implementation.
+func graphqlGoImplementation() types.Implementation {
+	return types.Implementation{
 		Repo: types.Repository{
 			Name:          "graphql-go-graphql",
 			URL:           "https://github.com/graphql-go/graphql",
@@ -55,8 +77,11 @@ func New() *Config {
 		},
 		Type: types.GoImplementationType,
 	}
+}
 
-	cfg.GraphqlJSImplementation = types.Implementation{
+// graphqlJSImplementation returns the graphql-js implementation.
+func graphqlJSImplementation() types.Implementation {
+	return types.Implementation{
 		Repo: types.Repository{
 			Name:          "graphql-graphql-js",
 			URL:           "https://github.com/graphql/graphql-js",
@@ -66,8 +91,11 @@ func New() *Config {
 		Type:              types.RefImplementationType,
 		TestNamesFilePath: "./puller-js/unit-tests.txt",
 	}
+}
 
-	cfg.GraphqlSpecification = types.Specification{
+// graphqlSpecification returns the graphql specification.
+func graphqlSpecification() types.Specification {
+	return types.Specification{
 		Repo: types.Repository{
 			Name:          "graphql-specification",
 			URL:           "https://github.com/graphql/graphql-spec",
@@ -75,25 +103,18 @@ func New() *Config {
 			Dir:           "./repos/graphql-specification/",
 		},
 	}
-
-	cfg.RefImplementation = cfg.GraphqlJSImplementation
-
-	cfg.Implementations = []types.Implementation{cfg.GraphqlGoImplementation}
-
-	cfg.GraphqlSpecificationWithPrefix = cfg.GraphqlSpecification.Repo.String(implementation.SpecificationPrefix)
-
-	cfg.AvailableImplementations = AvailableImplementations(cfg.Implementations)
-
-	return cfg
 }
 
-// AvailableImplementations returns a list of available implementations.
-func AvailableImplementations(implementations []types.Implementation) []string {
-	var result = []string{}
-
-	for _, i := range implementations {
-		result = append(result, i.Repo.String(implementation.ImplementationPrefix))
+// isDebug returns the current debug value.
+func isDebug() bool {
+	if os.Getenv("DEBUG") == "true" {
+		return true
 	}
 
-	return result
+	return false
+}
+
+// graphqlSpecificationWithPrefix returns the graphql specification repository link with a prefix.
+func graphqlSpecificationWithPrefix(graphqlSpecification types.Specification) string {
+	return graphqlSpecification.Repo.String(implementation.SpecificationPrefix)
 }
