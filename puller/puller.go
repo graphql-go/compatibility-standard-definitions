@@ -64,6 +64,7 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 			if strings.Contains(err.Error(), "repository already exists") {
 				return nil, nil
 			}
+
 			return nil, fmt.Errorf("failed to clone a git repository: %w", err)
 		}
 	}

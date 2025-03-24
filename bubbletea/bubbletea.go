@@ -33,6 +33,7 @@ func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ir
 			if len(b.choices) > 0 {
 				b.choice = b.choices[b.cursor]
 			}
+
 			return b, tea.Quit
 
 		case "down", "j":
