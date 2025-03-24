@@ -32,7 +32,7 @@ func main() {
 
 	log.Println(runResult.Status)
 
-	if runResult.Details != "" && cfg.IsDebug == false {
+	if runResult.Details != "" && !cfg.IsDebug {
 		log.Println(runResult.Details)
 	}
 }
