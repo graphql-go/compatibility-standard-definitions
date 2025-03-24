@@ -2,7 +2,6 @@ package executor
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 
 	"github.com/graphql-go/graphql"
@@ -64,12 +63,13 @@ func (g *Go) Run(params *RunParams) (*RunResult, error) {
 
 	doResult := graphql.Do(gqlParams)
 	if doResult.Errors != nil {
-		joinedErrs := errors.New("")
-		for i, err := range doResult.Errors {
-			if i == 0 {
+		var joinedErrs error
+		for _, err := range doResult.Errors {
+			if joinedErrs == nil {
 				joinedErrs = fmt.Errorf("%w", err)
 				continue
 			}
+
 			joinedErrs = fmt.Errorf("%w: %w", err, joinedErrs)
 		}
 
