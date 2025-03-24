@@ -20,6 +20,7 @@ func main() {
 	}
 
 	app := mainApp.App{}
+
 	runResult, err := app.Run(mainApp.RunParams{
 		Specification:  implementation.GraphqlSpecification,
 		Implementation: implementation.GraphqlGoImplementation,

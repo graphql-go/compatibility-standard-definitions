@@ -42,6 +42,7 @@ func (app *App) Run(params RunParams) (*RunResult, error) {
 	executor := executor.New()
 
 	ex := extractor.New(executor)
+
 	extractResult, err := ex.Extract(&extractor.ExtractorParams{
 		Implementation: params.Implementation,
 		Specification:  params.Specification,
@@ -51,6 +52,7 @@ func (app *App) Run(params RunParams) (*RunResult, error) {
 	}
 
 	val := validator.Validator{}
+
 	validateResult, err := val.Validate(&validator.ValidateParams{
 		Specification:  extractResult.SpecificationIntrospection,
 		Implementation: extractResult.ImplementationIntrospection,

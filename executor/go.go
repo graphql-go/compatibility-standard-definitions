@@ -48,6 +48,7 @@ func (g *Go) Run(params *RunParams) (*RunResult, error) {
 		Schema:        schema,
 		RequestString: params.Query,
 	}
+
 	doResult := graphql.Do(gqlParams)
 	if doResult.Errors != nil {
 		return nil, fmt.Errorf("%+v", doResult.Errors)

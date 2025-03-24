@@ -29,6 +29,7 @@ func (e *Executor) Execute(params ExecuteParams) (*ExecuteResult, error) {
 	runParams := &RunParams{
 		Query: params.Implementation.Introspection.Query,
 	}
+
 	result, err := e.goExecutor.Run(runParams)
 	if err != nil {
 		return nil, err
