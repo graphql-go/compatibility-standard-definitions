@@ -116,6 +116,7 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 	}
 
 	parser := comment.Parser{}
+
 	doc := parser.Parse(string(rawMarkdown))
 	for _, d := range doc.Content {
 		p, ok := d.(*comment.Paragraph)

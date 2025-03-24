@@ -63,10 +63,15 @@ func (b BubbleTea) View() string {
 		} else {
 			s.WriteString("( ) ")
 		}
-		s.WriteString(b.choices[i])
+
+		choice := b.choices[i]
+		s.WriteString(choice)
+
 		s.WriteString("\n")
 	}
-	s.WriteString("\n(press q to quit)\n")
+
+	endingMessage := "\n(press q to quit)\n"
+	s.WriteString(endingMessage)
 
 	return s.String()
 }
