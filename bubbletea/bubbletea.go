@@ -99,7 +99,7 @@ func New(p *Params) *BubbleTea {
 	}
 }
 
-func (b *BubbleTea) Run() (*RunResult, error) {
+func (b BubbleTea) Run() (*RunResult, error) {
 	teaProgram := tea.NewProgram(b)
 
 	m, err := teaProgram.Run()
