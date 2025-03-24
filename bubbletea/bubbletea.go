@@ -22,7 +22,7 @@ func (b BubbleTea) Init() tea.Cmd {
 	return nil
 }
 
-func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ireturn
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
