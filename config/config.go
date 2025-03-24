@@ -107,11 +107,7 @@ func graphqlSpecification() types.Specification {
 
 // isDebug returns the current debug value.
 func isDebug() bool {
-	if os.Getenv("DEBUG") == "true" {
-		return true
-	}
-
-	return false
+	return os.Getenv("DEBUG") == "true"
 }
 
 // graphqlSpecificationWithPrefix returns the graphql specification repository link with a prefix.
