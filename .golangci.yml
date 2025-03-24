@@ -7,6 +7,7 @@ linters:
 # https://google.github.io/styleguide/go/decisions#external-context-vs-local-names
     - exhaustruct
     - varnamelen
+    - tagliatelle
   wsl:
     force-err-cuddling: true
     force-short-decl-cuddling: false
