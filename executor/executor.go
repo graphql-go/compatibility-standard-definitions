@@ -6,12 +6,14 @@ import (
 
 // Executor handles the resolution of a graphql introspection query.
 type Executor struct {
-	goExecutor Go
+	goExecutor *Go
 }
 
 // New returns a pointer to the Executor struct.
 func New() *Executor {
-	return &Executor{}
+	return &Executor{
+		goExecutor: NewGo(),
+	}
 }
 
 // ExecuteResult is the result of the execute method.
