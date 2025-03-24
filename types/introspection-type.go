@@ -4,10 +4,10 @@ type IntrospectionType interface {
 }
 
 type IntrospectionScalarType struct {
-	kind           string `json:"kind"`
-	name           string `json:"name"`
-	description    string `json:"description"`
-	specifiedByURL string `json:"specifiedByURL"`
+	Kind           string `json:"kind"`
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	SpecifiedByURL string `json:"specifiedByURL"`
 }
 
 type IntrospectionObjectType struct {
