@@ -2,3 +2,8 @@ linters:
   enable-all: true
   disable:
     - tenv
+# Setting `wsl` to be aligned with what is most adopted, like the following style guide:
+# https://google.github.io/styleguide/go/decisions#external-context-vs-local-names
+  wsl:
+    force-err-cuddling: true
+    force-short-decl-cuddling: false
