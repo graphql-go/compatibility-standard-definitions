@@ -89,7 +89,8 @@ func (e *Extractor) extractSpec() (*types.SpecificationIntrospection, error) {
 }
 
 // extractImplementation extracts and returns the introspection result of a graphql implementation.
-func (e *Extractor) extractImplementation(implementation types.Implementation) (*types.ImplementationIntrospection, error) {
+func (e *Extractor) extractImplementation(implementation types.Implementation) (
+	*types.ImplementationIntrospection, error) {
 	introspectionQuery, err := e.loadIntrospectionQuery()
 	if err != nil {
 		return nil, fmt.Errorf("failed to load introspection query: %w", err)
@@ -108,7 +109,8 @@ func (e *Extractor) extractImplementation(implementation types.Implementation) (
 	return &types.ImplementationIntrospection{}, nil
 }
 
-// parseSpec parses and returns the introspection result of the graphql specification from the specification github repository.
+// parseSpec parses and returns the introspection result of the graphql specification
+// from the specification github repository.
 func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 	rawMarkdown, err := e.readTypeSystem()
 	if err != nil {
