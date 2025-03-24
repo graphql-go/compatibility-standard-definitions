@@ -60,7 +60,7 @@ func (b BubbleTea) View() string {
 	s.WriteString(b.ui.header)
 	s.WriteString("")
 
-	for i := 0; i < len(b.choices); i++ {
+	for i := range b.choices {
 		if b.cursor == i {
 			s.WriteString("(•) ")
 		} else {
