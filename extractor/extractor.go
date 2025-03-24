@@ -132,7 +132,11 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 		}
 	}
 
-	return types.SpecificationIntrospection{}, err
+	spec := types.SpecificationIntrospection{
+		QueryResult: types.IntrospectionQueryResult{},
+	}
+
+	return spec, nil
 }
 
 // loadSpec loads and returns the introspection result of the graphql javascript implementation.
