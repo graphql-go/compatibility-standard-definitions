@@ -1,9 +1,11 @@
 linters:
   enable-all: true
   disable:
+# Disabling the following linters since are deprecated:
     - tenv
-# Setting `wsl` cuddling related configuration to be aligned with what is most adopted, like the following style guide:
+# Disabling the following linters since are not mostly adopted, eg:
 # https://google.github.io/styleguide/go/decisions#external-context-vs-local-names
+    - exhaustruct
   wsl:
     force-err-cuddling: true
     force-short-decl-cuddling: false
