@@ -8,6 +8,7 @@ linters:
     - exhaustruct
     - varnamelen
     - tagliatelle
+    - nilnil
   wsl:
     force-err-cuddling: true
     force-short-decl-cuddling: false
