@@ -31,14 +31,14 @@ func New(executor *executor.Executor) *Extractor {
 	}
 }
 
-// ExtractorParams represents the parameters of the extract method.
-type ExtractorParams struct {
+// ExtractParams represents the parameters of the extract method.
+type ExtractParams struct {
 	Implementation types.Implementation
 	Specification  types.Specification
 }
 
-// ExtractorResult represents the result of the extract method.
-type ExtractorResult struct {
+// ExtractResult represents the result of the extract method.
+type ExtractResult struct {
 	// SpecificationIntrospection is the introspection types of the graphql specification.
 	SpecificationIntrospection *types.SpecificationIntrospection
 
@@ -47,7 +47,7 @@ type ExtractorResult struct {
 }
 
 // Extract extracts and return the introspection result from the specification and a given implementation.
-func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
+func (e *Extractor) Extract(params *ExtractParams) (*ExtractResult, error) {
 	specificationIntrospection, err := e.extractSpec()
 	if err != nil {
 		return nil, fmt.Errorf("failed extract specification: %w", err)
@@ -58,7 +58,7 @@ func (e *Extractor) Extract(params *ExtractorParams) (*ExtractorResult, error) {
 		return nil, fmt.Errorf("failed extract implementation: %w", err)
 	}
 
-	return &ExtractorResult{
+	return &ExtractResult{
 		SpecificationIntrospection:  specificationIntrospection,
 		ImplementationIntrospection: implementationIntrospection,
 	}, nil
@@ -119,15 +119,17 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 
 	parser := comment.Parser{}
 
+	headingsLevel2 := []string{}
+
 	doc := parser.Parse(string(rawMarkdown))
 	for _, d := range doc.Content {
 		p, ok := d.(*comment.Paragraph)
 		if ok {
 			for _, t := range p.Text {
-				switch val := t.(type) {
-				case comment.Plain:
+				val, ok := t.(comment.Plain)
+				if ok {
 					if strings.HasPrefix(string(val), "##") {
-						// log.Println(string(val))
+						headingsLevel2 = append(headingsLevel2, string(val))
 					}
 				}
 			}
