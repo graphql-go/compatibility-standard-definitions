@@ -18,8 +18,8 @@ const reposDirName = "repos"
 type Puller struct {
 }
 
-// PullerParams represents the parameters of the pull method.
-type PullerParams struct {
+// PullParams represents the parameters of the pull method.
+type PullParams struct {
 	// Specification is the code repository of the graphql specification.
 	Specification types.Repository
 
@@ -27,12 +27,12 @@ type PullerParams struct {
 	Implementation types.Repository
 }
 
-// PullerResult represents the result of the pull method.
-type PullerResult struct {
+// PullResult represents the result of the pull method.
+type PullResult struct {
 }
 
 // Pull pulls a set of code repositories and returns if it succeeded or not.
-func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
+func (p *Puller) Pull(params *PullParams) (*PullResult, error) {
 	repos := []types.Repository{
 		params.Specification,
 		params.Implementation,
@@ -69,5 +69,5 @@ func (p *Puller) Pull(params *PullerParams) (*PullerResult, error) {
 		}
 	}
 
-	return &PullerResult{}, nil
+	return &PullResult{}, nil
 }

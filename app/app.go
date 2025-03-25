@@ -32,7 +32,7 @@ type RunParams struct {
 func (app *App) Run(params RunParams) (*RunResult, error) {
 	p := puller.Puller{}
 
-	if _, err := p.Pull(&puller.PullerParams{
+	if _, err := p.Pull(&puller.PullParams{
 		Specification:  params.Specification.Repo,
 		Implementation: params.Implementation.Repo,
 	}); err != nil {
@@ -43,7 +43,7 @@ func (app *App) Run(params RunParams) (*RunResult, error) {
 
 	ex := extractor.New(executor)
 
-	extractResult, err := ex.Extract(&extractor.ExtractorParams{
+	extractResult, err := ex.Extract(&extractor.ExtractParams{
 		Implementation: params.Implementation,
 		Specification:  params.Specification,
 	})
