@@ -35,6 +35,7 @@ type Repository struct {
 // String returns the string summary of the code repository.
 func (r *Repository) String(prefix string) string {
 	base := fmt.Sprintf("%s: %s\n", prefix, taggedRepoURL)
+
 	return fmt.Sprintf(base, r.URL, r.ReferenceName)
 }
 

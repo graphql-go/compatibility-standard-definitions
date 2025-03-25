@@ -25,7 +25,6 @@ func (r Result) String() string {
 	default:
 		return "FAILURE"
 	}
-
 }
 
 // Validator represents the component that validates standard definitions.

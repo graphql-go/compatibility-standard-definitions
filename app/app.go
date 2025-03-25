@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/extractor"
 	"graphql-go/compatibility-standard-definitions/puller"
@@ -35,27 +36,29 @@ func (app *App) Run(params RunParams) (*RunResult, error) {
 		Specification:  params.Specification.Repo,
 		Implementation: params.Implementation.Repo,
 	}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to pull: %w", err)
 	}
 
 	executor := executor.New()
 
 	ex := extractor.New(executor)
+
 	extractResult, err := ex.Extract(&extractor.ExtractorParams{
 		Implementation: params.Implementation,
 		Specification:  params.Specification,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to extract: %w", err)
 	}
 
 	val := validator.Validator{}
+
 	validateResult, err := val.Validate(&validator.ValidateParams{
 		Specification:  extractResult.SpecificationIntrospection,
 		Implementation: extractResult.ImplementationIntrospection,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to validate:  %w", err)
 	}
 
 	return &RunResult{

@@ -1,6 +1,7 @@
 package bubbletea
 
 import (
+	"fmt"
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -21,30 +22,33 @@ func (b BubbleTea) Init() tea.Cmd {
 	return nil
 }
 
-func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg := msg.(type) {
-	case tea.KeyMsg:
-		switch msg.String() {
-		case "ctrl+c", "q", "esc":
-			return b, tea.Quit
+func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ireturn
+	keyMsg, ok := msg.(tea.KeyMsg)
+	if !ok {
+		return b, tea.Quit
+	}
 
-		case "enter":
-			if len(b.choices) > 0 {
-				b.choice = b.choices[b.cursor]
-			}
-			return b, tea.Quit
+	switch keyMsg.String() {
+	case "ctrl+c", "q", "esc":
+		return b, tea.Quit
 
-		case "down", "j":
-			b.cursor++
-			if b.cursor >= len(b.choices) {
-				b.cursor = 0
-			}
+	case "enter":
+		if len(b.choices) > 0 {
+			b.choice = b.choices[b.cursor]
+		}
 
-		case "up", "k":
-			b.cursor--
-			if b.cursor < 0 {
-				b.cursor = len(b.choices) - 1
-			}
+		return b, tea.Quit
+
+	case "down", "j":
+		b.cursor++
+		if b.cursor >= len(b.choices) {
+			b.cursor = 0
+		}
+
+	case "up", "k":
+		b.cursor--
+		if b.cursor < 0 {
+			b.cursor = len(b.choices) - 1
 		}
 	}
 
@@ -56,16 +60,21 @@ func (b BubbleTea) View() string {
 	s.WriteString(b.ui.header)
 	s.WriteString("")
 
-	for i := 0; i < len(b.choices); i++ {
+	for i := range b.choices {
 		if b.cursor == i {
 			s.WriteString("(•) ")
 		} else {
 			s.WriteString("( ) ")
 		}
-		s.WriteString(b.choices[i])
+
+		choice := b.choices[i]
+		s.WriteString(choice)
+
 		s.WriteString("\n")
 	}
-	s.WriteString("\n(press q to quit)\n")
+
+	endingMessage := "\n(press q to quit)\n"
+	s.WriteString(endingMessage)
 
 	return s.String()
 }
@@ -92,12 +101,12 @@ func New(p *Params) *BubbleTea {
 	}
 }
 
-func (b *BubbleTea) Run() (*RunResult, error) {
+func (b BubbleTea) Run() (*RunResult, error) {
 	teaProgram := tea.NewProgram(b)
 
 	m, err := teaProgram.Run()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failde to run: %w", err)
 	}
 
 	result := &RunResult{}
