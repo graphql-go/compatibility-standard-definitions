@@ -124,8 +124,8 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 		p, ok := d.(*comment.Paragraph)
 		if ok {
 			for _, t := range p.Text {
-				switch val := t.(type) {
-				case comment.Plain:
+				val, ok := t.(comment.Plain)
+				if ok {
 					if strings.HasPrefix(string(val), "##") {
 						// log.Println(string(val))
 					}
