@@ -25,7 +25,7 @@ func (b BubbleTea) Init() tea.Cmd {
 func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ireturn
 	keyMsg, ok := msg.(tea.KeyMsg)
 	if !ok {
-		return b, tea.Quit
+		return b, nil
 	}
 
 	switch keyMsg.String() {
