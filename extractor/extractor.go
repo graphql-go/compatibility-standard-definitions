@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"strings"
 
@@ -135,6 +136,7 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 			}
 		}
 	}
+	log.Println(headingsLevel2)
 
 	spec := types.SpecificationIntrospection{
 		QueryResult: types.IntrospectionQueryResult{},
