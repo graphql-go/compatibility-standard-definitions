@@ -67,6 +67,7 @@ func (g *Go) Run(params *RunParams) (*RunResult, error) {
 		for _, err := range doResult.Errors {
 			if joinedErrs == nil {
 				joinedErrs = fmt.Errorf("%w", err)
+
 				continue
 			}
 

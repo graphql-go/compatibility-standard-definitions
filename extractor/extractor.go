@@ -3,11 +3,12 @@ package extractor
 import (
 	"encoding/json"
 	"fmt"
+	"go/doc/comment"
 	"io"
+	"log"
 	"os"
 	"strings"
 
-	"go/doc/comment"
 	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/types"
 )
@@ -135,6 +136,8 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 			}
 		}
 	}
+
+	log.Println(headingsLevel2)
 
 	spec := types.SpecificationIntrospection{
 		QueryResult: types.IntrospectionQueryResult{},

@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/go-git/go-git/v5"
-
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
