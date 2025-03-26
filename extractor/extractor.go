@@ -136,6 +136,7 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 			}
 		}
 	}
+
 	log.Println(headingsLevel2)
 
 	spec := types.SpecificationIntrospection{
