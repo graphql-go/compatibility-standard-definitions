@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"graphql-go/compatibility-standard-definitions/config"
 	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/types"
 )
@@ -23,12 +24,25 @@ const introspectionQueryFilePath string = "./graphql-js-introspection/query.grap
 type Extractor struct {
 	// executor is the executor component that extractor delegates the execution of a graphql introspection query.
 	executor *executor.Executor
+
+	// cfg is the configuration struct.
+	cfg *config.Config
+}
+
+// NewParams represents the paramters for the new method.
+type NewParams struct {
+	// Executor is the executor parameter.
+	Executor *executor.Executor
+
+	// Config is the configuration parameter.
+	Config *config.Config
 }
 
 // New returns a pointer to a Extractor struct.
-func New(executor *executor.Executor) *Extractor {
+func New(params *NewParams) *Extractor {
 	return &Extractor{
-		executor: executor,
+		executor: params.Executor,
+		cfg:      params.Config,
 	}
 }
 
@@ -137,7 +151,9 @@ func (e *Extractor) parseSpec() (types.SpecificationIntrospection, error) {
 		}
 	}
 
-	log.Println(headingsLevel2)
+	if e.cfg.IsDebug {
+		log.Println(headingsLevel2)
+	}
 
 	spec := types.SpecificationIntrospection{
 		QueryResult: types.IntrospectionQueryResult{},
