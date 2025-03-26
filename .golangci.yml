@@ -3,17 +3,18 @@ linters:
   disable:
 # Disabling the following linters since are deprecated:
     - tenv
+# Disabling the following linters since linting commeting is required:
     - nolintlint
-    - gofumpt
-    - iface
-    - gci
-    - depguard
 # Disabling the following linters since are not mostly adopted, eg:
 # https://google.github.io/styleguide/go/decisions#external-context-vs-local-names
     - exhaustruct
     - varnamelen
     - tagliatelle
     - nilnil
+    - gofumpt
+    - iface
+    - gci
+    - depguard
   wsl:
     force-err-cuddling: true
     force-short-decl-cuddling: false
