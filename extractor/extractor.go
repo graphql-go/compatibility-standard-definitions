@@ -3,12 +3,12 @@ package extractor
 import (
 	"encoding/json"
 	"fmt"
+	"go/doc/comment"
 	"io"
 	"log"
 	"os"
 	"strings"
 
-	"go/doc/comment"
 	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/types"
 )
