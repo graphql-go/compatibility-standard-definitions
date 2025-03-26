@@ -25,7 +25,7 @@ type Extractor struct {
 	// executor is the executor component that extractor delegates the execution of a graphql introspection query.
 	executor *executor.Executor
 
-	// cfg is the configuration struct.
+	// cfg is the configuration of the application.
 	cfg *config.Config
 }
 
