@@ -38,7 +38,7 @@ type NewParams struct {
 	Config *config.Config
 }
 
-// New returns a pointer to a Extractor struct.
+// New returns a pointer to an Extractor struct.
 func New(params *NewParams) *Extractor {
 	return &Extractor{
 		executor: params.Executor,
