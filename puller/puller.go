@@ -6,8 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/go-git/go-git/v5"
 	"graphql-go/compatibility-standard-definitions/types"
+
+	"github.com/go-git/go-git/v5"
 )
 
 // reposDirName is the code repository root directory name.
