@@ -15,8 +15,7 @@ type IntrospectionObjectType struct {
 	Name        string             `json:"name"`
 	Description string             `json:"description"`
 	Fields      IntrospectionField `json:"fields"`
-	// TODO(@chris-ramon): Replace interface{} with other strategy.
-	Interfaces interface{} `json:"interfaces"`
+	Interfaces  interface{}        `json:"interfaces"`
 }
 
 type IntrospectionInterfaceType struct {
@@ -24,8 +23,7 @@ type IntrospectionInterfaceType struct {
 	Name        string             `json:"name"`
 	Description string             `json:"description"`
 	Fields      IntrospectionField `json:"fields"`
-	// TODO(@chris-ramon): Replace interface{} with other strategy.
-	Interfaces interface{} `json:"interfaces"`
+	Interfaces  interface{}        `json:"interfaces"`
 	// possibleTypes IntrospectionObjectType    `json:"possibleTypes"`
 }
 
@@ -40,7 +38,6 @@ type IntrospectionEnumType struct {
 	Kind        string `json:"kind"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	// TODO(@chris-ramon)
 	// enumValues  IntrospectionEnumValue `json:"enumValues"`
 }
 
@@ -48,7 +45,6 @@ type IntrospectionInputObjectType struct {
 	Kind        string `json:"kind"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	// TODO(@chris-ramon)
 	// inputFields IntrospectionInputValue `json:"inputFields"`
 	IsOneOf bool `json:"isOneOf"`
 }
