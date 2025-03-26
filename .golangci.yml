@@ -5,6 +5,7 @@ linters:
     - tenv
     - nolintlint
     - gofumpt
+    - iface
 # Disabling the following linters since are not mostly adopted, eg:
 # https://google.github.io/styleguide/go/decisions#external-context-vs-local-names
     - exhaustruct
