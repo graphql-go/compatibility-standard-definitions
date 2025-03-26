@@ -3,6 +3,7 @@ package validator
 import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+
 	"graphql-go/compatibility-standard-definitions/types"
 )
 
