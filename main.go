@@ -19,7 +19,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	app := mainApp.App{}
+	app := mainApp.App{
+		Config: cfg,
+	}
 
 	runResult, err := app.Run(mainApp.RunParams{
 		Specification:  cfg.GraphqlSpecification,

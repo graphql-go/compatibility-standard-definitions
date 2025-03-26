@@ -3,6 +3,7 @@ package app
 import (
 	"fmt"
 
+	"graphql-go/compatibility-standard-definitions/config"
 	"graphql-go/compatibility-standard-definitions/executor"
 	"graphql-go/compatibility-standard-definitions/extractor"
 	"graphql-go/compatibility-standard-definitions/puller"
@@ -12,6 +13,8 @@ import (
 
 // App represents the high level entry point for the application.
 type App struct {
+	// Config is the configuration of the application.
+	Config *config.Config
 }
 
 // RunResult represents the result of the run method.
@@ -42,7 +45,10 @@ func (app *App) Run(params RunParams) (*RunResult, error) {
 
 	executor := executor.New()
 
-	ex := extractor.New(executor)
+	ex := extractor.New(&extractor.NewParams{
+		Config:   app.Config,
+		Executor: executor,
+	})
 
 	extractResult, err := ex.Extract(&extractor.ExtractParams{
 		Implementation: params.Implementation,
