@@ -115,13 +115,28 @@ func (e *Extractor) extractImplementation(implementation types.Implementation) (
 		Query: string(introspectionQuery),
 	}
 
-	if _, err := e.executor.Execute(executor.ExecuteParams{
+	executeResult, err := e.executor.Execute(executor.ExecuteParams{
 		Implementation: implementation,
-	}); err != nil {
+	})
+	if err != nil {
 		return nil, fmt.Errorf("failed to execute: %w", err)
 	}
 
-	return &types.ImplementationIntrospection{}, nil
+	var result struct {
+		Data struct {
+			Schema types.IntrospectionSchema `json:"__schema"`
+		} `json:"data"`
+	}
+
+	if err := json.Unmarshal([]byte(executeResult.Result), &result); err != nil {
+		return nil, err
+	}
+
+	return &types.ImplementationIntrospection{
+		QueryResult: types.IntrospectionQueryResult{
+			Schema: result.Data.Schema,
+		},
+	}, nil
 }
 
 // parseSpec parses and returns the introspection result of the graphql specification
