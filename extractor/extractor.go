@@ -115,13 +115,14 @@ func (e *Extractor) extractImplementation(implementation types.Implementation) (
 		Query: string(introspectionQuery),
 	}
 
-	if _, err := e.executor.Execute(executor.ExecuteParams{
+	executeResult, err := e.executor.Execute(executor.ExecuteParams{
 		Implementation: implementation,
-	}); err != nil {
+	})
+	if err != nil {
 		return nil, fmt.Errorf("failed to execute: %w", err)
 	}
 
-	return &types.ImplementationIntrospection{}, nil
+	return &executeResult.ImplementationIntrospection, nil
 }
 
 // parseSpec parses and returns the introspection result of the graphql specification
