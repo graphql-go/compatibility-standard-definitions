@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/graphql-go/graphql"
+
+	"graphql-go/compatibility-standard-definitions/types"
 )
 
 // Go handles the go execution of a introspection query.
@@ -46,7 +48,7 @@ type RunParams struct {
 
 // RunResult represents the result of the run method.
 type RunResult struct {
-	Result string
+	ImplementationIntrospection types.ImplementationIntrospection
 }
 
 // Run runs and returns a given introspection query.
@@ -77,12 +79,22 @@ func (g *Go) Run(params *RunParams) (*RunResult, error) {
 		return nil, joinedErrs
 	}
 
-	result, err := json.Marshal(doResult)
+	doResultData, err := json.Marshal(doResult.Data)
 	if err != nil {
 		return nil, fmt.Errorf("failed to do marshal: %w", err)
 	}
 
+	introspectionResult := &types.IntrospectionQueryResult{}
+
+	if err := json.Unmarshal([]byte(doResultData), introspectionResult); err != nil {
+		return nil, err
+	}
+
+	implementationIntrospection := types.ImplementationIntrospection{
+		QueryResult: *introspectionResult,
+	}
+
 	return &RunResult{
-		Result: string(result),
+		ImplementationIntrospection: implementationIntrospection,
 	}, nil
 }
