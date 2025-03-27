@@ -18,11 +18,13 @@ func New() *Executor {
 
 // ExecuteResult is the result of the execute method.
 type ExecuteResult struct {
+	// ImplementationIntrospection is the introspection result of a graphql implementation.
 	ImplementationIntrospection types.ImplementationIntrospection
 }
 
 // ExecuteParams is the params of the execute method.
 type ExecuteParams struct {
+	// Implementation is the implementation parameter.
 	Implementation types.Implementation
 }
 
