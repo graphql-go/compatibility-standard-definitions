@@ -18,7 +18,7 @@ func New() *Executor {
 
 // ExecuteResult is the result of the execute method.
 type ExecuteResult struct {
-	Result string
+	ImplementationIntrospection types.ImplementationIntrospection
 }
 
 // ExecuteParams is the params of the execute method.
@@ -32,12 +32,12 @@ func (e *Executor) Execute(params ExecuteParams) (*ExecuteResult, error) {
 		Query: params.Implementation.Introspection.Query,
 	}
 
-	result, err := e.goExecutor.Run(runParams)
+	runResult, err := e.goExecutor.Run(runParams)
 	if err != nil {
 		return nil, err
 	}
 
 	return &ExecuteResult{
-		Result: result.Result,
+		ImplementationIntrospection: runResult.ImplementationIntrospection,
 	}, nil
 }
