@@ -48,6 +48,7 @@ type RunParams struct {
 
 // RunResult represents the result of the run method.
 type RunResult struct {
+	// ImplementationIntrospection is the result of an introspection of a graphql implementation.
 	ImplementationIntrospection types.ImplementationIntrospection
 }
 
