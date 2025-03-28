@@ -9,6 +9,14 @@ Current implementation supports the following GraphQL implementations:
 
 - Cross validationg of compatibility between implementation versions of the GraphQL type system.
 
+### Contribute Back
+
+Friendly reminder links are available in case you would like to contribute back into our commitment with Go and open-source.
+
+| Author        |  PayPal Link  |
+|:-------------:|:-------------:|
+| [Chris Ramón](https://github.com/chris-ramon) | https://www.paypal.com/donate/?hosted_button_id=WHUQQYEMTRQBJ |
+
 ## Quick Start
 
 Running the library:
