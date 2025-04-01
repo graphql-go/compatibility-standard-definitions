@@ -7,21 +7,33 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+// BubbleTea represents the CLI component that wraps the `bubbletea` library.
 type BubbleTea struct {
-	cursor  int
-	choice  string
+	// cursor is the reference of the current CLI choice.
+	cursor int
+
+	// choice is the current CLI choice.
+	choice string
+
+	// choices is the slice of CLI choices.
 	choices []string
-	ui      UI
+
+	// ui is the UI of the CLI.
+	ui UI
 }
 
+// UI represents the UI struct for the `BubbleTea` component.
 type UI struct {
+	// header is the UI header text.
 	header string
 }
 
+// Init is the `BubbleTea` method required for implementing the `Model` interface.
 func (b BubbleTea) Init() tea.Cmd {
 	return nil
 }
 
+// Update is the `BubbleTea` method required for implementing the `Model` interface.
 func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ireturn
 	keyMsg, ok := msg.(tea.KeyMsg)
 	if !ok {
@@ -55,6 +67,7 @@ func (b BubbleTea) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:golint,ir
 	return b, nil
 }
 
+// View is the `BubbleTea` method required for implementing the `Model` interface.
 func (b BubbleTea) View() string {
 	s := strings.Builder{}
 	s.WriteString(b.ui.header)
@@ -79,19 +92,23 @@ func (b BubbleTea) View() string {
 	return s.String()
 }
 
+// RunResult represents the result of the run method.
 type RunResult struct {
 	Choice string
 }
 
+// Params represents the parameters struct for the new method.
 type Params struct {
 	Choices []string
 	UI      UIParams
 }
 
+// UIParams represents the UI parameters for the new method parameters.
 type UIParams struct {
 	Header string
 }
 
+// New returns a pointer for the `BubbleTea` component.
 func New(p *Params) *BubbleTea {
 	return &BubbleTea{
 		choices: p.Choices,
@@ -101,6 +118,7 @@ func New(p *Params) *BubbleTea {
 	}
 }
 
+// Run runs the `BubbleTea` component and returns its result.
 func (b BubbleTea) Run() (*RunResult, error) {
 	teaProgram := tea.NewProgram(b)
 
