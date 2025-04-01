@@ -7,7 +7,7 @@ Current implementation supports the following GraphQL implementations:
 
 ## Use Cases
 
-- Cross validationg of compatibility between implementation versions of the GraphQL type system.
+- Cross validation of compatibility between implementations of the GraphQL type system.
 
 ### Contribute Back
 
