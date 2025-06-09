@@ -89,4 +89,16 @@ _Analysis date: March 12th 2025._
 | Dependant of testing.T | ✔️ | ❌ |
 
 
+#### graphql-js-introspection
 
+##### Quick Start
+
+Generating the content for the file `introspectionQuery.graphql`:
+```
+npm run getIntrospectionQuery
+```
+
+Generating the content for the file `introspectionQueryResult.json`:
+```
+npm run getIntrospectionQueryResult
+```
