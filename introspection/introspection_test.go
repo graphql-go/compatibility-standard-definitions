@@ -1,7 +1,6 @@
 package introspection
 
 import (
-	"log"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,10 +12,33 @@ func TestSpecificationQuery(t *testing.T) {
 
 	result, err := introspection.SpecificationQuery()
 	if err != nil {
-		log.Fatalf("expected no error, got: %v", err)
+		t.Fatalf("expected no error, got: %v", err)
 	}
 
-	expected := &types.IntrospectionQueryResult{}
-
-	assert.Equal(t, expected, result)
+	// Verify the result is not nil and is of correct type
+	assert.NotNil(t, result)
+	assert.IsType(t, &types.IntrospectionQueryResult{}, result)
+	
+	// Verify that the schema was parsed
+	assert.NotNil(t, result.Schema)
+	
+	// Verify that query type exists and has the expected name
+	assert.Equal(t, "RootQueryType", result.Schema.QueryType.Name)
+	
+	// Verify that mutation and subscription types are nil as expected
+	assert.Equal(t, "", result.Schema.MutationType.Name)
+	assert.Equal(t, "", result.Schema.SubscriptionType.Name)
+	
+	// Verify directives were parsed (should contain at least include, skip, deprecated)
+	assert.NotNil(t, result.Schema.Directives)
+	assert.Greater(t, len(result.Schema.Directives), 0)
+	
+	// Check for expected directive names
+	directiveNames := make([]string, len(result.Schema.Directives))
+	for i, directive := range result.Schema.Directives {
+		directiveNames[i] = directive.Name
+	}
+	assert.Contains(t, directiveNames, "include")
+	assert.Contains(t, directiveNames, "skip")
+	assert.Contains(t, directiveNames, "deprecated")
 }
