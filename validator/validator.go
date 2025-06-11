@@ -49,6 +49,48 @@ func (v *Validator) Validate(params *ValidateParams) (*ValidateResult, error) {
 	diff := cmp.Diff(params.Specification.QueryResult,
 		params.Implementation.QueryResult,
 		cmpopts.IgnoreUnexported(types.IntrospectionSchema{}),
+		// Sort slices to ignore ordering differences
+		cmpopts.SortSlices(func(a, b types.IntrospectionField) bool {
+			return a.Name < b.Name
+		}),
+		cmpopts.SortSlices(func(a, b types.IntrospectionInputValue) bool {
+			return a.Name < b.Name
+		}),
+		cmpopts.SortSlices(func(a, b types.IntrospectionEnumValue) bool {
+			return a.Name < b.Name
+		}),
+		cmpopts.SortSlices(func(a, b types.IntrospectionDirective) bool {
+			return a.Name < b.Name
+		}),
+		cmpopts.SortSlices(func(a, b types.DirectiveLocation) bool {
+			return string(a) < string(b)
+		}),
+		cmpopts.SortSlices(func(a, b types.IntrospectionFullType) bool {
+			// Handle nil name pointers
+			if a.Name == nil && b.Name == nil {
+				return a.Kind < b.Kind
+			}
+			if a.Name == nil {
+				return true
+			}
+			if b.Name == nil {
+				return false
+			}
+			return *a.Name < *b.Name
+		}),
+		cmpopts.SortSlices(func(a, b types.IntrospectionTypeRef) bool {
+			// Handle nil name pointers
+			if a.Name == nil && b.Name == nil {
+				return a.Kind < b.Kind
+			}
+			if a.Name == nil {
+				return true
+			}
+			if b.Name == nil {
+				return false
+			}
+			return *a.Name < *b.Name
+		}),
 	)
 
 	if diff != "" {
