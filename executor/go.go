@@ -23,7 +23,7 @@ func NewGo() *Go {
 	g := &Go{}
 
 	g.rootQuery = graphql.ObjectConfig{
-		Name: "RootQuery",
+		Name: "RootQueryType",
 		Fields: graphql.Fields{
 			"echo": &graphql.Field{
 				Type: graphql.String,
