@@ -23,11 +23,12 @@ func TestSpecificationQuery(t *testing.T) {
 	assert.NotNil(t, result.Schema)
 	
 	// Verify that query type exists and has the expected name
+	assert.NotNil(t, result.Schema.QueryType)
 	assert.Equal(t, "RootQueryType", result.Schema.QueryType.Name)
 	
 	// Verify that mutation and subscription types are nil as expected
-	assert.Equal(t, "", result.Schema.MutationType.Name)
-	assert.Equal(t, "", result.Schema.SubscriptionType.Name)
+	assert.Nil(t, result.Schema.MutationType)
+	assert.Nil(t, result.Schema.SubscriptionType)
 	
 	// Verify directives were parsed (should contain at least include, skip, deprecated)
 	assert.NotNil(t, result.Schema.Directives)
