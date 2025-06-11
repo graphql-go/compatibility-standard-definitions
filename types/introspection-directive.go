@@ -1,11 +1,10 @@
 package types
 
 type IntrospectionDirective struct {
-	Name         string                    `json:"name"`
-	Description  string                    `json:"description"`
-	IsRepeatable bool                      `json:"isRepeatable"`
-	Locations    []DirectiveLocation       `json:"locations"`
-	Args         []IntrospectionInputValue `json:"args"`
+	Name        string                    `json:"name"`
+	Description *string                   `json:"description"`
+	Locations   []DirectiveLocation       `json:"locations"`
+	Args        []IntrospectionInputValue `json:"args"`
 }
 
 type DirectiveLocation string
@@ -33,29 +32,8 @@ const (
 )
 
 type IntrospectionInputValue struct {
-	Name              string                    `json:"name"`
-	Description       string                    `json:"description"`
-	TypeRef           IntrospectionInputTypeRef `json:"typeRef"`
-	DefaultValue      string                    `json:"defaultValue"`
-	IsDeprecated      bool                      `json:"isDeprecated"`
-	DeprecationReason string                    `json:"deprecationReason"`
-}
-
-type IntrospectionInputType interface {
-}
-
-type IntrospectionInputTypeRef interface {
-}
-
-type IntrospectionNamedTypeRef interface {
-	IntrospectionInputType
-}
-
-type IntrospectionListTypeRef interface {
-	IntrospectionInputTypeRef
-}
-
-type IntrospectionNonNullTypeRef interface {
-	IntrospectionNamedTypeRef
-	IntrospectionListTypeRef
+	Name         string               `json:"name"`
+	Description  *string              `json:"description"`
+	Type         IntrospectionTypeRef `json:"type"`
+	DefaultValue *string              `json:"defaultValue"`
 }

@@ -1,50 +1,34 @@
 package types
 
-type IntrospectionType interface {
+// IntrospectionFullType represents a complete type from introspection
+type IntrospectionFullType struct {
+	Kind          string                     `json:"kind"`
+	Name          *string                    `json:"name"`
+	Description   *string                    `json:"description"`
+	Fields        []IntrospectionField       `json:"fields"`
+	InputFields   []IntrospectionInputValue  `json:"inputFields"`
+	Interfaces    []IntrospectionTypeRef     `json:"interfaces"`
+	EnumValues    []IntrospectionEnumValue   `json:"enumValues"`
+	PossibleTypes []IntrospectionTypeRef     `json:"possibleTypes"`
+	OfType        *IntrospectionTypeRef      `json:"ofType"`
 }
 
-type IntrospectionScalarType struct {
-	Kind           string `json:"kind"`
-	Name           string `json:"name"`
-	Description    string `json:"description"`
-	SpecifiedByURL string `json:"specifiedByURL"`
+// IntrospectionTypeRef represents a type reference
+type IntrospectionTypeRef struct {
+	Kind   string                `json:"kind"`
+	Name   *string               `json:"name"`
+	OfType *IntrospectionTypeRef `json:"ofType"`
 }
 
-type IntrospectionObjectType struct {
-	Kind        string             `json:"kind"`
-	Name        string             `json:"name"`
-	Description string             `json:"description"`
-	Fields      IntrospectionField `json:"fields"`
-	Interfaces  interface{}        `json:"interfaces"`
+// IntrospectionNamedTypeRef represents a simple named type reference
+type IntrospectionNamedTypeRef struct {
+	Name string `json:"name"`
 }
 
-type IntrospectionInterfaceType struct {
-	Kind        string             `json:"kind"`
-	Name        string             `json:"name"`
-	Description string             `json:"description"`
-	Fields      IntrospectionField `json:"fields"`
-	Interfaces  interface{}        `json:"interfaces"`
-	// possibleTypes IntrospectionObjectType    `json:"possibleTypes"`
-}
-
-type IntrospectionUnionType struct {
-	Kind          string                  `json:"kind"`
-	Name          string                  `json:"name"`
-	Description   string                  `json:"description"`
-	PossibleTypes IntrospectionObjectType `json:"possibleTypes"`
-}
-
-type IntrospectionEnumType struct {
-	Kind        string `json:"kind"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	// enumValues  IntrospectionEnumValue `json:"enumValues"`
-}
-
-type IntrospectionInputObjectType struct {
-	Kind        string `json:"kind"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	// inputFields IntrospectionInputValue `json:"inputFields"`
-	IsOneOf bool `json:"isOneOf"`
+// IntrospectionEnumValue represents an enum value
+type IntrospectionEnumValue struct {
+	Name              string  `json:"name"`
+	Description       *string `json:"description"`
+	IsDeprecated      bool    `json:"isDeprecated"`
+	DeprecationReason *string `json:"deprecationReason"`
 }
