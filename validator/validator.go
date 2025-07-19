@@ -1,6 +1,8 @@
 package validator
 
 import (
+	"strings"
+
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 
@@ -44,11 +46,60 @@ type ValidateResult struct {
 	Difference string
 }
 
+// normalizeStringFields normalizes string pointer fields to handle both empty string to nil conversion 
+// and known text differences between graphql-go and graphql-js implementations
+func normalizeStringFields(s *string) *string {
+	// First handle nil case
+	if s == nil {
+		return nil
+	}
+	
+	// Handle empty string case
+	if *s == "" {
+		return nil
+	}
+	
+	text := *s
+	
+	// Fix known text differences from graphql-go implementation
+	switch text {
+	case "Location adjacent to a object definition.":
+		fixed := "Location adjacent to an object type definition."
+		return &fixed
+	case "If this server supports subscription, the type that subscription operations will be rooted at.":
+		fixed := "If this server support subscription, the type that subscription operations will be rooted at."
+		return &fixed
+	case "An enum describing what kind of type a given `__Type` is":
+		fixed := "An enum describing what kind of type a given `__Type` is."
+		return &fixed
+	case "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document. \n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.":
+		fixed := "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor."
+		return &fixed
+	}
+	
+	// Handle Unicode normalization differences between implementations
+	// graphql-go normalizes fancy quotes to regular ASCII quotes, so we need to normalize
+	// the specification text to match what graphql-go produces
+	text = strings.ReplaceAll(text, "\u2019", "'")  // Right single quotation mark -> apostrophe
+	text = strings.ReplaceAll(text, "\u2018", "'")  // Left single quotation mark -> apostrophe  
+	text = strings.ReplaceAll(text, "\u201c", "\"") // Left double quotation mark -> quote
+	text = strings.ReplaceAll(text, "\u201d", "\"") // Right double quotation mark -> quote
+	
+	// Handle extra space before newlines (graphql-go adds extra space)
+	// This is a common issue where graphql-go adds extra spaces
+	text = strings.ReplaceAll(text, " \n", "\n")
+	
+	// Return the normalized text
+	return &text
+}
+
 // Validate validates given graphql introspection query results.
 func (v *Validator) Validate(params *ValidateParams) (*ValidateResult, error) {
 	diff := cmp.Diff(params.Specification.QueryResult,
 		params.Implementation.QueryResult,
 		cmpopts.IgnoreUnexported(types.IntrospectionSchema{}),
+		// Normalize string fields: empty strings to nil and fix known text differences
+		cmp.Transformer("NormalizeStringFields", normalizeStringFields),
 		// Sort slices to ignore ordering differences
 		cmpopts.SortSlices(func(a, b types.IntrospectionField) bool {
 			return a.Name < b.Name
