@@ -40,7 +40,6 @@ func New() *Config {
 	graphqlJSImplementation := graphqlJSImplementation()
 	graphqlSpecification := graphqlSpecification()
 	implementations := []types.Implementation{graphqlGoImplementation}
-	graphqlSpecificationWithPrefix := graphqlSpecificationWithPrefix(graphqlSpecification)
 	availableImplementations := availableImplementations(implementations)
 
 	return &Config{
@@ -50,7 +49,7 @@ func New() *Config {
 		GraphqlSpecification:           graphqlSpecification,
 		RefImplementation:              graphqlJSImplementation,
 		Implementations:                implementations,
-		GraphqlSpecificationWithPrefix: graphqlSpecificationWithPrefix,
+		GraphqlSpecificationWithPrefix: graphqlImplementationWithPrefix(graphqlJSImplementation),
 		AvailableImplementations:       availableImplementations,
 	}
 }
@@ -110,7 +109,7 @@ func isDebug() bool {
 	return os.Getenv("DEBUG") == "true"
 }
 
-// graphqlSpecificationWithPrefix returns the graphql specification repository link with a prefix.
-func graphqlSpecificationWithPrefix(graphqlSpecification types.Specification) string {
-	return graphqlSpecification.Repo.String(implementation.SpecificationPrefix)
+// graphqlImplementationWithPrefix returns a graphql implementation repository link with a prefix.
+func graphqlImplementationWithPrefix(i types.Implementation) string {
+	return i.Repo.String(implementation.RefImplementationPrefix)
 }
